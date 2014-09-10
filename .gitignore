@@ -35,4 +35,4 @@ test/
 lib/
 
 # Temporal database settings
-Database.java
+#Database.java
