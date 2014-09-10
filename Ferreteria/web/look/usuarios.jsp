@@ -58,16 +58,48 @@
         <main role="main" class="container">
             <div class="col-md-10 col-md-offset-1">
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron presentation">
-                    <h1>Bienvenido a Ferreter&iacute;a!</h1>
-                    <p>This is bootstrap inside a Servlet. Because we are <span>weird</span>.</p>
-                    <div class="picture">
-                        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Wood_chisel.JPG/1024px-Wood_chisel.JPG">
-                        <!--
-                        "<a href="http://commons.wikimedia.org/wiki/File:Wood_chisel.JPG#mediaviewer/File:Wood_chisel.JPG">Wood chisel</a>" by Original uploader was <a href="//en.wikipedia.org/wiki/User:Fishdecoy" class="extiw" title="en:User:Fishdecoy">Fishdecoy</a> at <a class="external text" href="http://en.wikipedia.org">en.wikipedia</a> - Transferred from <a class="external text" href="http://en.wikipedia.org">en.wikipedia</a>; transfer was stated to be made by <a href="//commons.wikimedia.org/wiki/User:Satrughna" title="User:Satrughna">User:Satrughna</a>.. Licensed under Public domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
-                        -->
-                    </div>
-                    <p class="footer"><a href="Index" class="btn btn-primary btn-lg" role="button">Iniciar Sesi&oacute;n</a></p>
+                <div class="jumbotron">
+                    <h1>ABM Usuarios</h1>
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> Check me out
+                          </label>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                            </tr><tr>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                            </tr><tr>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                                <td>PEPE</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- ENDS CONTENT -->
             </div>

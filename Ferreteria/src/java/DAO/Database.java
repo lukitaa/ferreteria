@@ -19,9 +19,9 @@ public class Database
     private String driver   = "com.mysql.jdbc.Driver";
     private String url      = "jdbc:mysql://";
     private String servidor = "localhost";
-    private String username = "DB_USERNAME";
-    private String password = "DB_PASSWORD";
-    private String dbName   = "DB_NAME";
+    private String username = "root";
+    private String password = "";
+    private String dbName   = "ferreteria";
     private String port     = "3306";
 
     private Connection conexion;
