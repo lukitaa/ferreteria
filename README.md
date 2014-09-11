@@ -7,6 +7,7 @@ Sistema desarrollado con Java Servlets.
 #Requisítos
 
  - Java: *JDK 1.7 or higher*
+ - Server: *Apache Tomcat 7*
  - DB: *MySQL 5.5 or higher*
 
 #Instalación
