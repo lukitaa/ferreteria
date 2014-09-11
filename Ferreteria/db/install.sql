@@ -16,27 +16,27 @@ use `ferreteria`;
 
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `IdUser` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL UNIQUE,
-  `Password` char(255) NOT NULL,
+  `IdUser` INT NOT NULL AUTO_INCREMENT,
+  `Username` VARCHAR(50) NOT NULL UNIQUE,
+  `Password` CHAR(255) NOT NULL,
   `Admin` bool NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`IdUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
 CREATE TABLE IF NOT EXISTS `products` (
-    `IdProduct` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `Product` varchar(50) NOT NULL UNIQUE,
-	`Price` INT UNSIGNED NOT NULL,
-	`Stock` INT UNSIGNED NOT NULL,
+    `IdProduct` INT NOT NULL AUTO_INCREMENT,
+    `Product` VARCHAR(50) NOT NULL UNIQUE,
+	`Price` INT NOT NULL,
+	`Stock` INT NOT NULL,
     PRIMARY KEY (`IdProduct`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
 CREATE TABLE IF NOT EXISTS `purchases` (
-  `IdPurchase` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `IdPurchase` INT NOT NULL AUTO_INCREMENT,
   -- `FechaIngreso` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `IdUser` INT UNSIGNED NOT NULL,
+  `IdUser` INT NOT NULL,
   PRIMARY KEY (`IdPurchase`),
   FOREIGN KEY (`IdUser`)
     REFERENCES users(`IdUser`)
@@ -45,10 +45,12 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 
 
 CREATE TABLE IF NOT EXISTS `details` (
-  `Amount` INT UNSIGNED NOT NULL,
-  `Price` INT UNSIGNED NOT NULL,
-  `IdProduct` INT UNSIGNED NOT NULL,
-  `IdPurchase` INT UNSIGNED NOT NULL,
+  `IdDetail` INT NOT NULL AUTO_INCREMENT,
+  `Amount` INT NOT NULL,
+  `Price` INT NOT NULL,
+  `IdProduct` INT NOT NULL,
+  `IdPurchase` INT NOT NULL,
+  PRIMARY KEY (`IdDetail`),
   FOREIGN KEY (`IdProduct`)
     REFERENCES products(`IdProduct`)
     ON DELETE CASCADE ON UPDATE CASCADE,
