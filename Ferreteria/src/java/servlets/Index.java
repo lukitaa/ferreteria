@@ -15,8 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
+import controllers.InvalidParameterException;
+import controllers.StorageException;
+import controllers.UsersController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +31,20 @@ import javax.servlet.http.HttpServletResponse;
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
 public class Index extends HttpServlet {
+    
+    
+    static void install() {
+
+        try {
+            UsersController.addAdminUser("admin", "1234");
+
+        } catch(InvalidParameterException e){
+            System.err.println(e.getMessage());
+        } catch (StorageException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +57,8 @@ public class Index extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        install();
 
         // If user is logged in, redirect to the home page
         if (Common.userIsLogged(request))

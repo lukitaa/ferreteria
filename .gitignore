@@ -7,7 +7,7 @@ build/
 *~
 
 # Hibernate configuration file (avoid upload private passwords)
-hibernate.cfg.xml
+#hibernate.cfg.xml
 
 # Personal configs directory (maybe this is only because of Netbeans, no idea)
 private/

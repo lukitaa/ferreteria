@@ -15,8 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
+import controllers.StorageException;
+import controllers.LoginController;
+import controllers.InvalidParameterException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -25,7 +28,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -56,27 +58,23 @@ public class Login extends HttpServlet {
         String username = request.getParameter("username"),
                password = request.getParameter("password");
         
-        LoginController controller = null;
-        try {
-            controller = new LoginController();
-        } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
         // Check if user is trying to login
         if (username != null) {
             try {
-                // Check if login credentials are valid
-                if (controller.userExists(username, password)) {
-                    // Generate session
-                    Common.generateSession(request);
-                    // Redirect to index
-                    response.sendRedirect("/Ferreteria/index");
-                } else {
-                    error = true;
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                LoginController.login(username, password);
+                
+                // User is logged!!!!?
+                
+                // Generate session
+                Common.generateSession(request);
+                // Redirect to index
+                response.sendRedirect("/Ferreteria/index");
+                    
+            } catch(InvalidParameterException e) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
+            } catch(StorageException e) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
             }
         }
 

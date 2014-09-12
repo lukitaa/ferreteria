@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Home extends HttpServlet {
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,19 +42,18 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request))
-            response.sendRedirect("/Ferreteria/login");
+        HttpSession session = request.getSession(false);
 
-        String username = (String) request.getSession().getAttribute("user");
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println(new templates.Home().printPage("Inicio", username));
-        } finally {
-            out.close();
+        if (session != null) {
+            try {
+                session.invalidate();
+            } catch (IllegalStateException e) {
+                // Do nothing, the session is already invalid anyway
+            }
         }
+
+        // Redirect to index
+        response.sendRedirect("/Ferreteria/index");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
