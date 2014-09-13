@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
+import controllers.InvalidParameterException;
+import controllers.StorageException;
+import controllers.UsersController;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Home extends HttpServlet {
+public class Index extends HttpServlet {
+
+
+    static void install() {
+
+        try {
+            UsersController.addAdminUser("admin", "1234");
+
+        } catch(InvalidParameterException e){
+            System.err.println(e.getMessage());
+        } catch (StorageException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,19 +58,13 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request))
+        //install();
+
+        // If user is logged in, redirect to the home page
+        if (Common.userIsLogged(request))
+            response.sendRedirect("/Ferreteria/inicio");
+        else // Otherwise display the login form
             response.sendRedirect("/Ferreteria/login");
-
-        String username = (String) request.getSession().getAttribute("user");
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println(new templates.Home().printPage("Inicio", username));
-        } finally {
-            out.close();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

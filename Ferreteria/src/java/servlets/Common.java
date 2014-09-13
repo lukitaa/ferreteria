@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,18 +27,18 @@ import javax.servlet.http.HttpSession;
 public class Common {
 
     public static boolean userIsLogged(HttpServletRequest request) {
-        // Get the session if any but do not generate it otherwise
-        HttpSession session = request.getSession(false);
+        // Get the session or generate it if doesn't exist already
+        HttpSession session = request.getSession();
         // Check for user already logged in
         return (session != null && session.getAttribute("user") != null);
     }
-    
+
     public static HttpSession generateSession(HttpServletRequest request) {
         HttpSession session = null;
 
         // Generate new session
-        session = request.getSession(true);
-        
+        session = request.getSession();
+
         session.setAttribute("user", "pepe");
 
         return session;

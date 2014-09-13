@@ -33,6 +33,3 @@ test/
 # Libraries are too heavy for the college bandwith
 # Sorry but you will have to add them by your self :-)
 lib/
-
-# Temporal database settings
-#Database.java

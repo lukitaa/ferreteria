@@ -15,20 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package controllers;
+package servlets;
 
+import controllers.StorageException;
+import controllers.LoginController;
+import controllers.InvalidParameterException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Logout extends HttpServlet {
+public class Login extends HttpServlet {
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,18 +49,46 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+        // If user is logged, do not login *again*!
+        if (Common.userIsLogged(request))
+            response.sendRedirect("/Ferreteria/index");
 
-        if (session != null) {
+        // Verify username and password
+        boolean error = false;
+        String username = request.getParameter("username"),
+               password = request.getParameter("password");
+
+
+        // Check if user is trying to login
+        if (username != null) {
             try {
-                session.invalidate();
-            } catch (IllegalStateException e) {
-                // Do nothing, the session is already invalid anyway
+                LoginController.login(username, password);
+
+                // User is logged!!!!?
+
+                // Generate session
+                Common.generateSession(request);
+                // Redirect to index
+                response.sendRedirect("/Ferreteria/index");
+
+            } catch(InvalidParameterException e) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
+            } catch(StorageException e) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
             }
+
+            // If user is trying to login and has not been redirected,
+            // it means he entered wrong credentials
+            error = true;
         }
 
-        // Redirect to index
-        response.sendRedirect("/Ferreteria/index");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            out.println(new templates.Login().printPage("Login", error));
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,7 +127,7 @@ public class Logout extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Process the login form";
     }// </editor-fold>
 
 }
