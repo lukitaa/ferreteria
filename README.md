@@ -12,7 +12,7 @@ Sistema desarrollado con Java Servlets.
  - *jBCrypt 0.3*
  - *MySQL 5.x**
 
-* Puedes reemplazar MySQL por cualquier otro motor compatible con Hibernate.
+\* Puedes reemplazar MySQL por cualquier otro motor compatible con Hibernate.
 
 #Instalación
 
