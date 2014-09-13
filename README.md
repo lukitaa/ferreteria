@@ -1,14 +1,18 @@
-Ferreteria
+Ferretería
 ==========
 
 Software para la administración y compra de artículos de una ferretería.  
 Sistema desarrollado con Java Servlets.
 
-#Requisítos
+#Requisitos
 
- - Java: *JDK 1.7 or higher*
- - Server: *Apache Tomcat 7*
- - DB: *MySQL 5.5 or higher*
+ - *JDK 1.7 or higher*
+ - *Apache Tomcat 7*
+ - *Hibernate 4.x*
+ - *jBCrypt 0.3*
+ - *MySQL 5.x**
+
+* Puedes reemplazar MySQL por cualquier otro motor compatible con Hibernate.
 
 #Instalación
 
@@ -17,6 +21,9 @@ Sistema desarrollado con Java Servlets.
  0. Ejecuta el archivo `./ferreteria/db/install.sql` sobre MySQL
  1. Añade las dependencias al proyecto:
    1. MySQL driver
+   2. Hibernate
+   4. Persistence JPA 2.0
+   3. jBCrypt
  2. Ingresa el usuario y la contraseña de MySQL en el archivo `./Ferreteria/src/java/DAO/database.java`
  3. Deberás ingresar manualmente datos pre-cargados, como usuarios y productos.
 
