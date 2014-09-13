@@ -57,25 +57,29 @@ public class Login extends HttpServlet {
         boolean error = false;
         String username = request.getParameter("username"),
                password = request.getParameter("password");
-        
-        
+
+
         // Check if user is trying to login
         if (username != null) {
             try {
                 LoginController.login(username, password);
-                
+
                 // User is logged!!!!?
-                
+
                 // Generate session
                 Common.generateSession(request);
                 // Redirect to index
                 response.sendRedirect("/Ferreteria/index");
-                    
+
             } catch(InvalidParameterException e) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
             } catch(StorageException e) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
             }
+
+            // If user is trying to login and has not been redirected,
+            // it means he entered wrong credentials
+            error = true;
         }
 
         response.setContentType("text/html;charset=UTF-8");

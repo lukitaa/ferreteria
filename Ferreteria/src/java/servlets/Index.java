@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
 public class Index extends HttpServlet {
-    
-    
+
+
     static void install() {
 
         try {
@@ -57,8 +57,8 @@ public class Index extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        install();
+
+        //install();
 
         // If user is logged in, redirect to the home page
         if (Common.userIsLogged(request))
