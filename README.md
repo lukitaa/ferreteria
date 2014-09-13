@@ -18,14 +18,16 @@ Sistema desarrollado con Java Servlets.
 
 **Aún no completada**, pero los pasos por el momento son los siguientes.
 
- 0. Ejecuta el archivo `./ferreteria/db/install.sql` sobre MySQL
+ 0. Ejecuta el archivo `./Ferreteria/db/install.sql` sobre MySQL
  1. Añade las dependencias al proyecto:
    1. MySQL driver
    2. Hibernate
    4. Persistence JPA 2.0
    3. jBCrypt
- 2. Ingresa el usuario y la contraseña de MySQL en el archivo `./Ferreteria/src/java/DAO/database.java`
- 3. Deberás ingresar manualmente datos pre-cargados, como usuarios y productos.
+ 2. En el directorio `./Ferreteria/src/java/`, copia el archivo `hibernate.cfg.xml.template` y pegalo en la misma carpeta con el nombre `hibernate.cfg.xml`
+ 3. Luego modifica el nuevo archivo `hibernate.cfg.xml` con tus datos
+ 4. El servlet `index` cuenta con el método `install()` para generar un usuario
+ 5. Otros datos, como productos, deberán ser precargados en la base de datos ya que exceden el propósito de este sistema
 
 #Autores
 

@@ -7,7 +7,7 @@ build/
 *~
 
 # Hibernate configuration file (avoid upload private passwords)
-#hibernate.cfg.xml
+hibernate.cfg.xml
 
 # Personal configs directory (maybe this is only because of Netbeans, no idea)
 private/
@@ -33,6 +33,3 @@ test/
 # Libraries are too heavy for the college bandwith
 # Sorry but you will have to add them by your self :-)
 lib/
-
-# Temporal database settings
-#Database.java
