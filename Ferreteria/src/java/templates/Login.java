@@ -55,7 +55,8 @@ public class Login extends Template {
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
                 + "<li><a href=\"" + APP_ROOT + "\">Home</a></li>"
-                + "<li class=\"active\">Login</li> </ol>";
+                + "<li class=\"active\">Login</li>"
+                + "</ol>";
     }
 
     /**

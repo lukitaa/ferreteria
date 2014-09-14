@@ -78,25 +78,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Lorem Pizza</td>
-                                    <td class="price">100</td>
-                                    <td class="stock">5</td>
-                                    <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr>
-                                    <td>Lorem Pizza</td>
-                                    <td class="price">100</td>
-                                    <td class="stock">5</td>
-                                    <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr>
-                                    <td>Lorem Pizza</td>
-                                    <td class="price">100</td>
-                                    <td class="stock">5</td>
-                                    <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr>
-                                    <td>Lorem Pizza</td>
-                                    <td class="price">100</td>
-                                    <td class="stock">5</td>
-                                    <td><input type="number" min="0" max="5" value="0"></td>
+                                    <td>{PRODUCT_NAME}</td>
+                                    <td class="price">{PRODUCT_PRICE}</td>
+                                    <td class="stock">{PRODUCT_STOCK}</td>
+                                    <td><input type="number" name="product-{PRODUCT_ID}" min="0" max="{PRODUCT_STOCK}" value="0"></td>
                                 </tr>
                             </tbody>
                         </table>
