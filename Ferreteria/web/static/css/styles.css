@@ -23,16 +23,10 @@ body > .container {
     margin-top: 15px;
 }
 
-/**       **/
-/*  INDEX  */
-/**       **/
-.presentation {
-    text-align: center;
-}
-.presentation .picture img {
-    box-shadow: 0 1px 6px black;
-    width: 100%;
-}
+
+/**        **/
+/*  GLOBAL  */
+/**        **/
 .presentation .footer {
     margin-top: 15px;
 }
@@ -41,15 +35,17 @@ body > .container {
 /**       **/
 /*  LOGIN  */
 /**       **/
-.presentation .form {
-    text-align: left;
+.login.presentation {
+    text-align: center;
 }
-
 
 /**      **/
 /*  HOME  */
 /**      **/
-.presentation .menu .btn-block {
+.home.presentation {
+    text-align: center;
+}
+.home.presentation .menu .btn-block {
     border: 2px solid black;
     border-radius: 4px;
     font-size: 2em;
@@ -62,21 +58,30 @@ body > .container {
     -o-transition: background-color 300ms ease-out;
     transition: background-color 300ms ease-out;
 }
-.presentation .menu .btn-block:first-child:hover, 
-.presentation .menu .btn-block:first-child:focus, 
-.presentation .menu .btn-block:first-child:active {
+.home.presentation .menu .btn-block:first-child:hover, 
+.home.presentation .menu .btn-block:first-child:focus, 
+.home.presentation .menu .btn-block:first-child:active {
     background-color: green;
     color: white;
 }
-.presentation .menu .btn-block:hover, 
-.presentation .menu .btn-block:focus, 
-.presentation .menu .btn-block:active {
+.home.presentation .menu .btn-block:hover, 
+.home.presentation .menu .btn-block:focus, 
+.home.presentation .menu .btn-block:active {
     background-color: #428FFF;
     color: white;
 }
-.presentation .menu .btn-block:last-child:hover, 
-.presentation .menu .btn-block:last-child:focus, 
-.presentation .menu .btn-block:last-child:active {
+.home.presentation .menu .btn-block:last-child:hover, 
+.home.presentation .menu .btn-block:last-child:focus, 
+.home.presentation .menu .btn-block:last-child:active {
     background-color: red;
     color: white;
+}
+
+/**          **/
+/*  PURCHASE  */
+/**          **/
+.purchase .header {
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-align: center;
 }

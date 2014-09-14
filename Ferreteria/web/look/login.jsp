@@ -63,7 +63,7 @@
                 </ol>
                 <!-- ENDS BREADCRUMBS -->
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron presentation">
+                <div class="jumbotron presentation login">
                     <h1>Bienvenido a Ferreter&iacute;a!</h1>
                     <p>Inicia sesi&oacute;n para entrar al sistema de compras.</p>
                     <div class="alert alert-danger alert-dismissible" role="alert">

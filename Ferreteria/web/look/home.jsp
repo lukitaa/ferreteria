@@ -58,8 +58,8 @@
         <main role="main" class="container">
             <div class="col-md-10 col-md-offset-1">
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron presentation">
-                    <h1>Bienvenido a Ferreter&iacute;a!</h1>
+                <div class="jumbotron presentation home">
+                    <h1 header>Bienvenido a Ferreter&iacute;a!</h1>
                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>
                     <div class="container menu">
                         <div class="row">

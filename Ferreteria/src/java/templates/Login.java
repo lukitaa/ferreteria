@@ -37,7 +37,7 @@ public class Login extends Template {
         boolean loginError = (data != null);
         String username = "", content = "";
 
-        content = "<div class=\"jumbotron presentation\">                     <h1>Bienvenido a Ferreter&iacute;a!</h1>                     <p>Inicia sesi&oacute;n para entrar al sistema de compras.</p>";
+        content = "<div class=\"jumbotron presentation login\">                     <h1>Bienvenido a Ferreter&iacute;a!</h1>                     <p>Inicia sesi&oacute;n para entrar al sistema de compras.</p>";
 
         if (loginError) {
             username = (String) data;
