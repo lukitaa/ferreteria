@@ -35,7 +35,7 @@ public abstract class Template {
     }
 
     public static String printFooter() {
-        return "<script src=\"static/vendors/jquery/js/jquery.min.js\"></script> <script src=\"static/vendors/bootstrap/js/bootstrap.min.js\"></script> </body> </html>";
+        return "<script src=\"static/vendors/jquery/js/jquery.min.js\"></script> <script src=\"static/vendors/bootstrap/js/bootstrap.min.js\"></script><script src=\"static/js/scripts.js\"></script> </body> </html>";
     }
 
     public static String printInitContainer() {
