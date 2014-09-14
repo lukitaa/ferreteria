@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="inicio">Inicio</a></li>
-                        <li><a>Some day..</a></li>
+                        <li><a href="productos">Productos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a>Hola, YO!</a></li>
@@ -65,7 +65,7 @@
                         <div class="row">
                             <a href="#first" class="col-md-3 btn-block btn btn-lg text-uppercase">usuarios</a>
                             <a href="#second" class="col-md-3 btn-block btn btn-lg text-uppercase">historial</a>
-                            <a href="#third" class="col-md-3 btn-block btn btn-lg text-uppercase">productos</a>
+                            <a href="productos" class="col-md-3 btn-block btn btn-lg text-uppercase">productos</a>
                         </div>
                     </div>
                 </div>

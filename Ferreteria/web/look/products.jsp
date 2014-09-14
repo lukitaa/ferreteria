@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="inicio">Inicio</a></li>
-                        <li class="active"><a href="inicio">Compras</a></li>
+                        <li class="active"><a href="productos">Productos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a>Hola, YO!</a></li>
@@ -64,9 +64,9 @@
                 </ol>
                 <!-- ENDS BREADCRUMBS -->
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron presentation purchase">
+                <div class="jumbotron presentation products">
                     <h1 class="header">Comprar productos</h1>
-                    <form class="purchase" action="javascript:console.log(0)">
+                    <form class="products" action="javascript:console.log(0)">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -77,22 +77,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="product-1">
+                                <tr>
                                     <td>Lorem Pizza</td>
                                     <td class="price">100</td>
                                     <td class="stock">5</td>
                                     <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr id="product-2">
+                                </tr><tr>
                                     <td>Lorem Pizza</td>
                                     <td class="price">100</td>
                                     <td class="stock">5</td>
                                     <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr id="product-4">
+                                </tr><tr>
                                     <td>Lorem Pizza</td>
                                     <td class="price">100</td>
                                     <td class="stock">5</td>
                                     <td><input type="number" min="0" max="5" value="0"></td>
-                                </tr><tr id="product-5">
+                                </tr><tr>
                                     <td>Lorem Pizza</td>
                                     <td class="price">100</td>
                                     <td class="stock">5</td>

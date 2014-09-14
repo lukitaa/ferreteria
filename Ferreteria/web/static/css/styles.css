@@ -78,18 +78,18 @@ body > .container {
 }
 
 /**          **/
-/*  PURCHASE  */
+/*  PRODUCTS  */
 /**          **/
-.purchase .header {
+.products .header {
     font-size: 3em;
     margin-bottom: 30px;
     text-align: center;
 }
-.purchase .table th {
+.products .table th {
     /* Trying to resize columns with bootstrap */
     /*width: auto !important;*/
 }
-.purchase .btn {
+.products .btn {
     float: right;
     text-transform: uppercase;
 }
