@@ -1,11 +1,9 @@
 <%-- 
-    Document   : login
-    Created on : Sep 4, 2014, 12:55:25 AM
+    Document   : index
+    Created on : Aug 26, 2014, 5:16:07 PM
     Author     : Lucio Martinez <luciomartinez at openmailbox dot org>
 --%>
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -46,10 +44,11 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="inicio">Inicio</a></li>
-                        <li class="active"><a href="login">Login</a></li>
+                        <li class="active"><a href="inicio">Compras</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a><%= new SimpleDateFormat("dd 'of' MMM, yyyy").format(Calendar.getInstance().getTime()) %></a></li>
+                        <li><a>Hola, YO!</a></li>
+                        <li><a href="logout">Salir</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,35 +60,47 @@
                 <!-- BEGINS BREADCRUMBS -->
                 <ol class="breadcrumb">
                     <li><a href="inicio">Home</a></li>
-                    <li class="active">Login</li>
+                    <li class="active">Compras</li>
                 </ol>
                 <!-- ENDS BREADCRUMBS -->
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron presentation login">
-                    <h1>Bienvenido a Ferreter&iacute;a!</h1>
-                    <p>Inicia sesi&oacute;n para entrar al sistema de compras.</p>
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                        <strong>Error</strong> La combinaci&oacute;n usuario contraseña es incorrecta.
-                    </div>
-                    <form role="form" class="form form-horizontal" method="post">
-                        <div class="form-group">
-                            <label for="username-login" class="col-sm-3 control-label">Nombre de Usuario</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="username" id="username-login" placeholder="pepe" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password-login" class="col-sm-3 control-label">Contraseña</label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" name="password" id="password-login" placeholder="C0n7r@s3ñ@" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-7">
-                                <button type="submit" class="btn btn-default">Iniciar Sesi&oacute;n</button>
-                            </div>
-                        </div>
+                <div class="jumbotron presentation purchase">
+                    <h1 class="header">Comprar productos</h1>
+                    <form class="purchase" action="javascript:console.log(0)">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Unidades</th>
+                                    <th>Agregar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="product-1">
+                                    <td>Lorem Pizza</td>
+                                    <td class="price">100</td>
+                                    <td class="stock">5</td>
+                                    <td><input type="number" min="0" max="5" value="0"></td>
+                                </tr><tr id="product-2">
+                                    <td>Lorem Pizza</td>
+                                    <td class="price">100</td>
+                                    <td class="stock">5</td>
+                                    <td><input type="number" min="0" max="5" value="0"></td>
+                                </tr><tr id="product-4">
+                                    <td>Lorem Pizza</td>
+                                    <td class="price">100</td>
+                                    <td class="stock">5</td>
+                                    <td><input type="number" min="0" max="5" value="0"></td>
+                                </tr><tr id="product-5">
+                                    <td>Lorem Pizza</td>
+                                    <td class="price">100</td>
+                                    <td class="stock">5</td>
+                                    <td><input type="number" min="0" max="5" value="0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Comprar</button>
                     </form>
                 </div>
                 <!-- ENDS CONTENT -->

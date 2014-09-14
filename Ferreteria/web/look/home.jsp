@@ -29,6 +29,7 @@
     </head>
     <body>
         
+        <!-- BEGINS NAV -->
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -40,8 +41,6 @@
                     </button>
                     <a class="navbar-brand" href="inicio">Ferreter&iacute;a</a>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="inicio">Inicio</a></li>
@@ -54,6 +53,7 @@
                 </div>
             </div>
         </nav>
+        <!-- ENDS NAV -->
         
         <main role="main" class="container">
             <div class="col-md-10 col-md-offset-1">
@@ -75,5 +75,6 @@
         
         <script src="static/vendors/jquery/js/jquery.min.js"></script>
         <script src="static/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="static/js/scripts.js"></script>
     </body>
 </html>
