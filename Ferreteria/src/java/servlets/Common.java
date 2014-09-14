@@ -17,6 +17,7 @@
 
 package servlets;
 
+import entity.Users;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,16 +31,16 @@ public class Common {
         // Get the session or generate it if doesn't exist already
         HttpSession session = request.getSession();
         // Check for user already logged in
-        return (session != null && session.getAttribute("user") != null);
+        return (session != null && session.getAttribute("session_user") != null);
     }
 
-    public static HttpSession generateSession(HttpServletRequest request) {
+    public static HttpSession generateSession(HttpServletRequest request, Users u) {
         HttpSession session = null;
 
         // Generate new session
         session = request.getSession();
 
-        session.setAttribute("user", "pepe");
+        session.setAttribute("session_user", new SessionUser(u.getIdUser(), u.getUsername(), u.isAdmin()));
 
         return session;
     }

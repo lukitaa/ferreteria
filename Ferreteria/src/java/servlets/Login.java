@@ -17,9 +17,10 @@
 
 package servlets;
 
-import controllers.StorageException;
-import controllers.LoginController;
 import controllers.InvalidParameterException;
+import controllers.LoginController;
+import controllers.StorageException;
+import entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -60,12 +61,12 @@ public class Login extends HttpServlet {
         // Check if user is trying to login
         if (username != null) {
             try {
-                LoginController.login(username, password);
+                Users u = LoginController.login(username, password);
 
                 // User is logged!!!!?
 
                 // Generate session
-                Common.generateSession(request);
+                Common.generateSession(request, u);
                 // Redirect to index
                 response.sendRedirect("/Ferreteria/index");
 
