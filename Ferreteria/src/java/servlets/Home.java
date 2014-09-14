@@ -43,15 +43,17 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
 
         // User must be logged in to access this page!
-        if (!Common.userIsLogged(request))
+        if (!Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
+            return;
+        }
 
-        String username = (String) request.getSession().getAttribute("user");
+        SessionUser session = Common.getSessionUser(request);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.Home().printPage("Inicio", username));
+            out.println(new templates.Home().printPage("Inicio", session));
         } finally {
             out.close();
         }

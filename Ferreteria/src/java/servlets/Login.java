@@ -51,8 +51,10 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
 
         // If user is logged, do not login *again*!
-        if (Common.userIsLogged(request))
+        if (Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/index");
+            return;
+        }
 
         // Verify username and password
         String username = request.getParameter("username"),
@@ -69,6 +71,7 @@ public class Login extends HttpServlet {
                 Common.generateSession(request, u);
                 // Redirect to index
                 response.sendRedirect("/Ferreteria/index");
+                return;
 
             } catch(InvalidParameterException e) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);

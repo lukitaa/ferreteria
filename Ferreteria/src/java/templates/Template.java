@@ -38,6 +38,14 @@ public abstract class Template {
         return "<script src=\"static/vendors/jquery/js/jquery.min.js\"></script> <script src=\"static/vendors/bootstrap/js/bootstrap.min.js\"></script><script src=\"static/js/scripts.js\"></script> </body> </html>";
     }
 
+    public static String printInitNav() {
+        return "<nav class=\"navbar navbar-default\" role=\"navigation\">             <div class=\"container-fluid\">                 <div class=\"navbar-header\">                     <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">                         <span class=\"sr-only\">Activar navegaci&oacute;n</span>                         <span class=\"icon-bar\"></span>                         <span class=\"icon-bar\"></span>                         <span class=\"icon-bar\"></span>                     </button>                     <a class=\"navbar-brand\" href=\"inicio\">Ferreter&iacute;a</a>                 </div>                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">";
+    }
+
+    public static String printEndNav() {
+        return "</div>             </div>         </nav>";
+    }
+
     public static String printInitContainer() {
         return "<main role=\"main\" class=\"container\">             <div class=\"col-md-10 col-md-offset-1\">";
     }

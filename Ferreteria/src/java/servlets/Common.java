@@ -27,11 +27,13 @@ import javax.servlet.http.HttpSession;
  */
 public class Common {
 
+    private static String SESSION_ATTR_NAME = "session_user";
+
     public static boolean userIsLogged(HttpServletRequest request) {
         // Get the session or generate it if doesn't exist already
         HttpSession session = request.getSession();
         // Check for user already logged in
-        return (session != null && session.getAttribute("session_user") != null);
+        return (session.getAttribute(SESSION_ATTR_NAME) != null);
     }
 
     public static HttpSession generateSession(HttpServletRequest request, Users u) {
@@ -40,9 +42,13 @@ public class Common {
         // Generate new session
         session = request.getSession();
 
-        session.setAttribute("session_user", new SessionUser(u.getIdUser(), u.getUsername(), u.isAdmin()));
+        session.setAttribute(SESSION_ATTR_NAME, new SessionUser(u.getIdUser(), u.getUsername(), u.isAdmin()));
 
         return session;
+    }
+
+    public static SessionUser getSessionUser(HttpServletRequest request) {
+        return (SessionUser) request.getSession().getAttribute(SESSION_ATTR_NAME);
     }
 
 }

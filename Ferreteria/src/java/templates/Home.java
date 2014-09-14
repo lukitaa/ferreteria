@@ -17,6 +17,8 @@
 
 package templates;
 
+import servlets.SessionUser;
+
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
@@ -41,19 +43,21 @@ public class Home extends Template {
 
     /**
      *
-     * @param data String that represents the username of the logged user
+     * @param data Session user
      * @return
      */
     @Override
     public String printNav(Object data) {
-        String username = (data != null) ? (String)data : "";
-        return "<nav class=\"navbar navbar-default\" role=\"navigation\">             <div class=\"container-fluid\">                 <div class=\"navbar-header\">                     <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">                         <span class=\"sr-only\">Activar navegaci&oacute;n</span>                         <span class=\"icon-bar\"></span>                         <span class=\"icon-bar\"></span>                         <span class=\"icon-bar\"></span>                     </button>                     <a class=\"navbar-brand\" href=\"inicio\">Ferreter&iacute;a</a>                 </div>                  <!-- Collect the nav links, forms, and other content for toggling -->                 <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">                     <ul class=\"nav navbar-nav\">                         <li class=\"active\"><a href=\"inicio\">Inicio</a></li>                         <li><a>Some day..</a></li>                     </ul>                     <ul class=\"nav navbar-nav navbar-right\">                         <li><a>Hola, YO!</a></li>                         <li><a href=\"logout\">Salir</a></li>                     </ul>                 </div>             </div>         </nav>";
+        String username = ((SessionUser)data).getUsername();
+        return "<ul class=\"nav navbar-nav\">                         <li class=\"active\"><a href=\"inicio\">Inicio</a></li>                         <li><a>Some day..</a></li>                     </ul>                     <ul class=\"nav navbar-nav navbar-right\">                         <li><a>Hola, " + username + "!</a></li>                         <li><a href=\"logout\">Salir</a></li>                     </ul>";
     }
 
     @Override
     public String printPage(String title, Object data) {
         return Template.printHeader(title)
+                + Template.printInitNav()
                 + this.printNav(data)
+                + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()
                 + this.printContent(null)
