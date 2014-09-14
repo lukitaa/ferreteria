@@ -18,17 +18,17 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Home extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,21 +42,24 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request)) {
-            response.sendRedirect("/Ferreteria/login");
-            return;
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            try {
+                // Expire session
+                session.invalidate();
+
+                // Use the PGR pattern for redirection
+                response.setStatus(303);
+                response.setHeader("Location", "/Ferreteria/index");
+
+            } catch (IllegalStateException e) {
+                // Do nothing, the session is already invalid anyway
+            }
         }
 
-        SessionUser session = Common.getSessionUser(request);
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println(new templates.Home().printPage("Inicio", session));
-        } finally {
-            out.close();
-        }
+        // Redirect to index (replaced with about code)
+        //response.sendRedirect("/Ferreteria/index");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

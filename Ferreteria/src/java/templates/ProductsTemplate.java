@@ -17,23 +17,33 @@
 
 package templates;
 
+import entity.Products;
+import java.util.List;
 import servlets.SessionUser;
 
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Products extends Template {
+public class ProductsTemplate extends Template {
+
+    private List<Products> products;
+
+    public ProductsTemplate(List<Products> products) {
+        this.products = products;
+    }
 
     private String printProducstInRows() {
         String rows = "";
 
-        rows += "<tr>"
-                + "<td>{PRODUCT_NAME}</td>"
-                + "<td class=\"price\">{PRODUCT_PRICE}</td>"
-                + "<td class=\"stock\">{PRODUCT_STOCK}</td>"
-                + "<td><input type=\"number\" name=\"product-{PRODUCT_ID}\" min=\"0\" max=\"{PRODUCT_STOCK}\" value=\"0\"></td>"
+        for (Products p : products) {
+            rows += "<tr>"
+                + "<td>" + p.getProduct() + "</td>" // PRODUCT NAME
+                + "<td class=\"price\">" + p.getPrice() + "</td>" // PRODUCT PRICE
+                + "<td class=\"stock\">" + p.getStock() + "</td>" // PRODUCT STOCK
+                + "<td><input type=\"number\" name=\"product-" + p.getIdProduct() + "\" min=\"0\" max=\"" + p.getStock() + "\" value=\"0\"></td>"
                 + "</tr>";
+        }
 
         return rows;
     }

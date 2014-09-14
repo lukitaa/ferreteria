@@ -17,10 +17,8 @@
 
 package servlets;
 
-import controllers.InvalidParameterException;
-import controllers.StorageException;
-import controllers.UsersController;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,21 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Index extends HttpServlet {
-
-
-    static void install() {
-
-        try {
-            UsersController.addAdminUser("admin", "1234");
-
-        } catch(InvalidParameterException e){
-            System.err.println(e.getMessage());
-        } catch (StorageException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,13 +42,21 @@ public class Index extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //install();
-
-        // If user is logged in, redirect to the home page
-        if (Common.userIsLogged(request))
-            response.sendRedirect("/Ferreteria/inicio");
-        else // Otherwise display the login form
+        // User must be logged in to access this page!
+        if (!Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
+            return;
+        }
+
+        SessionUser session = Common.getSessionUser(request);
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            out.println(new templates.HomeTemplate().printPage("Inicio", session));
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

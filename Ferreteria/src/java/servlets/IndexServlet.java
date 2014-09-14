@@ -17,18 +17,34 @@
 
 package servlets;
 
+import controllers.InvalidParameterException;
+import controllers.StorageException;
+import controllers.UsersController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Logout extends HttpServlet {
+public class IndexServlet extends HttpServlet {
+
+
+    static void install() {
+
+        try {
+            UsersController.addAdminUser("admin", "1234");
+
+        } catch(InvalidParameterException e){
+            System.err.println(e.getMessage());
+        } catch (StorageException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,24 +58,13 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+        //install();
 
-        if (session != null) {
-            try {
-                // Expire session
-                session.invalidate();
-
-                // Use the PGR pattern for redirection
-                response.setStatus(303);
-                response.setHeader("Location", "/Ferreteria/index");
-
-            } catch (IllegalStateException e) {
-                // Do nothing, the session is already invalid anyway
-            }
-        }
-
-        // Redirect to index (replaced with about code)
-        //response.sendRedirect("/Ferreteria/index");
+        // If user is logged in, redirect to the home page
+        if (Common.userIsLogged(request))
+            response.sendRedirect("/Ferreteria/inicio");
+        else // Otherwise display the login form
+            response.sendRedirect("/Ferreteria/login");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,24 +3,24 @@
     <!-- SERVLETS LIST -->
     <servlet>
         <servlet-name>Index</servlet-name>
-        <servlet-class>servlets.Index</servlet-class>
+        <servlet-class>servlets.IndexServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets.Login</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Home</servlet-name>
-        <servlet-class>servlets.Home</servlet-class>
+        <servlet-class>servlets.HomeServlet</servlet-class>
     </servlet>
     <!-- URL MAPPING -->
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.Logout</servlet-class>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Products</servlet-name>
-        <servlet-class>servlets.Products</servlet-class>
+        <servlet-class>servlets.ProductsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>

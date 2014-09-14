@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
 
     /**
@@ -74,16 +74,16 @@ public class Login extends HttpServlet {
                 return;
 
             } catch(InvalidParameterException e) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, e);
             } catch(StorageException e) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, e);
             }
         }
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.Login().printPage("Login", username));
+            out.println(new templates.LoginTemplate().printPage("Login", username));
         } finally {
             out.close();
         }

@@ -17,8 +17,14 @@
 
 package servlets;
 
+import controllers.ProductsController;
+import controllers.StorageException;
+import entity.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Products extends HttpServlet {
+public class ProductsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,11 +55,18 @@ public class Products extends HttpServlet {
         }
 
         SessionUser session = Common.getSessionUser(request);
+        List<Products> products = null;
+
+        try {
+            products = ProductsController.getProducts();
+        } catch (StorageException ex) {
+            Logger.getLogger(ProductsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.Products().printPage("Productos", session));
+            out.println(new templates.ProductsTemplate(products).printPage("Productos", session));
         } finally {
             out.close();
         }

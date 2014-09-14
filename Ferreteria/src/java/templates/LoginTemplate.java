@@ -24,7 +24,7 @@ import java.util.Calendar;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Login extends Template {
+public class LoginTemplate extends Template {
 
     /**
      *

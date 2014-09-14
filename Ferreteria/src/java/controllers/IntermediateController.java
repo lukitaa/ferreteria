@@ -17,61 +17,68 @@
 
 package controllers;
 
+import dao.ProductsDaoImpl;
 import dao.UsersDaoImpl;
+import entity.Products;
 import entity.Users;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.mindrot.jbcrypt.BCrypt;
 import util.HibernateUtil;
 
 /**
  *
- * @author alumno
+ * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class UsersController extends IntermediateController {
+public abstract class IntermediateController extends Controller {
 
-    private static Users addUser(String username, String password, boolean admin) throws InvalidParameterException, StorageException {
-
-        if (!validUsername(username))
-            throw new InvalidParameterException("El nombre de usuario ingresado es invalido.");
-
-        if (!validPassword(password))
-            throw new InvalidParameterException("La contraseña ingresada es invalida.");
-
-        // Encrypt the password before send it to the DAO
-        password = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
-        Users u = new Users(username, password, admin);
-
+    public static List<Users> getUsers() throws StorageException {
         Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
             session.beginTransaction();
 
-            new UsersDaoImpl(session).add(u);
+            List<Users> l = new UsersDaoImpl(session).fetchAll();
 
             session.getTransaction().commit();
             session.close();
 
-            return u;
+            return l;
 
-        } catch(HibernateException e) {
+        } catch (HibernateException e) {
             if (session != null) {
                 session.getTransaction().rollback();
                 session.close();
             }
 
-            throw new StorageException("Error interno al intentar guardar el usuario.");
+            throw new StorageException("Error al intentar cargar los usuarios.");
         }
 
     }
 
-    public static Users addCommonUser(String username, String password) throws InvalidParameterException, StorageException {
-        return addUser(username, password, false);
-    }
 
-    public static void addAdminUser(String username, String password) throws InvalidParameterException, StorageException {
-        addUser(username, password, true);
-    }
+    public static List<Products> getProducts() throws StorageException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
+        try {
+            session.beginTransaction();
+
+            List<Products> l = new ProductsDaoImpl(session).fetchAll();
+
+            session.getTransaction().commit();
+            session.close();
+
+            return l;
+
+        } catch (HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                session.close();
+            }
+
+            throw new StorageException("Error al intentar cargar los productos.");
+        }
+
+    }
 
 }

@@ -17,23 +17,18 @@
 
 package controllers;
 
-import dao.UsersDaoImpl;
-import entity.Users;
-import java.util.List;
-import org.hibernate.Session;
-
 /**
  *
  * @author alumno
  */
 public abstract class Controller {
-    
+
     /**
      * Check if a string is empty or only white spaces
      * @param s The string to check
      * @return True if the string is empty or white space, otherwise false.
      */
-    final private static boolean emptyOrWhiteSpace(String s) {
+    static boolean emptyOrWhiteSpace(String s) {
         return (s == null || s.trim().isEmpty());
     }
 
@@ -70,17 +65,5 @@ public abstract class Controller {
 
         return (!emptyOrWhiteSpace(password) && l >= minL && l <= maxL);
     }
-    
-    
-    final protected static List<Users> getAllTheUsers(Session session) {
-        session.beginTransaction();
 
-        List<Users> l = new UsersDaoImpl(session).fetchAll();
-
-        session.getTransaction().commit();
-        session.close();
-
-        return l;
-    }
-    
 }

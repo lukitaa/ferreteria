@@ -23,11 +23,11 @@ import servlets.SessionUser;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Home extends Template {
+public class HomeTemplate extends Template {
 
     /**
      *
-     * @param data Home has no use in this parameter
+     * @parHomeTemplateata Home has no use in this parameter
      * @return
      */
     @Override
