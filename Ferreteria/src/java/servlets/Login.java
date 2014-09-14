@@ -54,10 +54,8 @@ public class Login extends HttpServlet {
             response.sendRedirect("/Ferreteria/index");
 
         // Verify username and password
-        boolean error = false;
         String username = request.getParameter("username"),
                password = request.getParameter("password");
-
 
         // Check if user is trying to login
         if (username != null) {
@@ -76,16 +74,12 @@ public class Login extends HttpServlet {
             } catch(StorageException e) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
             }
-
-            // If user is trying to login and has not been redirected,
-            // it means he entered wrong credentials
-            error = true;
         }
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.Login().printPage("Login", error));
+            out.println(new templates.Login().printPage("Login", username));
         } finally {
             out.close();
         }

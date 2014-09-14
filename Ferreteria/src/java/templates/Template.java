@@ -25,13 +25,9 @@ public abstract class Template {
 
     static String appRoot = "/Ferreteria" + "/";
 
-    public abstract String printContent();
-    public abstract String printContent(boolean error);
+    public abstract String printContent(Object data);
     public abstract String printBreadcrumbs();
-    public abstract String printNav();
-    public abstract String printNav(String date);
-    public abstract String printPage(String title);
-    public abstract String printPage(String title, boolean error);
+    public abstract String printNav(Object data);
     public abstract String printPage(String title, Object data);
 
     public static String printHeader(String title) {
