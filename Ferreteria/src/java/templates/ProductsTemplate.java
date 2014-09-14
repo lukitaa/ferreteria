@@ -72,8 +72,8 @@ public class ProductsTemplate extends Template {
     public String printNav(Object data) {
         String username = ((SessionUser)data).getUsername();
         return "<ul class=\"nav navbar-nav\">"
-                + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
-                + "<li><a href=\"productos\">Productos</a></li>"
+                + "<li><a href=\"inicio\">Inicio</a></li>"
+                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">"
                 + "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
