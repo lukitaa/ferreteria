@@ -12,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>Ferreter&iacute;a</title>
+        <title>Ferreter&iacute;a - TITLE</title>
         
         <base href="${pageContext.request.contextPath}/" >
         
