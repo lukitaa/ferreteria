@@ -4,8 +4,6 @@
     Author     : Lucio Martinez <luciomartinez at openmailbox dot org>
 --%>
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -14,11 +12,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>Ferreter&iacute;a</title>
+        <title>Ferreter&iacute;a - TITLE</title>
         
-        <link href="/Ferreteria/static/css/styles.css" rel="stylesheet">
-        <link href="/Ferreteria/static/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/Ferreteria/static/vendors/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+        <base href="${pageContext.request.contextPath}/" >
+        
+        <link href="static/css/styles.css" rel="stylesheet">
+        <link href="static/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/vendors/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,9 +29,9 @@
     </head>
     <body>
         
+        <!-- BEGINS NAV -->
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Activar navegaci&oacute;n</span>
@@ -39,64 +39,65 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/Ferreteria">Hi World :)</a>
+                    <a class="navbar-brand" href="inicio">Ferreter&iacute;a</a>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/Ferreteria">Inicio</a></li>
-                        <li><a>SomeDay..</a></li>
+                        <li><a href="inicio">Inicio</a></li>
+                        <li><a href="productos">Productos</a></li>
+                        <li class="active"><a href="usuarios">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a><%= new SimpleDateFormat("dd 'of' MMM, yyyy").format(Calendar.getInstance().getTime()) %></a></li>
+                        <li><a>Hola, YO!</a></li>
+                        <li><a href="logout">Salir</a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div>
+            </div>
         </nav>
+        <!-- ENDS NAV -->
         
         <main role="main" class="container">
             <div class="col-md-10 col-md-offset-1">
+                <!-- BEGINS BREADCRUMBS -->
+                <ol class="breadcrumb">
+                    <li><a href="inicio">Home</a></li>
+                    <li class="active">Usuarios</li>
+                </ol>
+                <!-- ENDS BREADCRUMBS -->
                 <!-- BEGINS CONTENT -->
                 <div class="jumbotron">
                     <h1>ABM Usuarios</h1>
-                    <form class="form-inline" role="form">
+                    <form class="form-inline" role="form" action="/usuarios/agregar" method="post">
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                          <label for="username">Nombre de usuario</label>
+                          <input type="text" name="username" id="username" class="form-control" placeholder="Ingrese el usuario" required>
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <label for="user-password">Contraseña</label>
+                          <input type="password" name="password" id="user-password" class="form-control" placeholder="Ingrese el password" required>
                         </div>
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox"> Check me out
+                            Es administrador?  <input type="checkbox" name="admin"> 
                           </label>
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default">Agregar</button>
                     </form>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>A</th>
-                                <th>B</th>
-                                <th>C</th>
+                                <th>Nombre de usuario</th>
+                                <th>Es administrador</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
-                            </tr><tr>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
-                            </tr><tr>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
-                                <td>PEPE</td>
+                                <td>{USER_NAME}</td>
+                                <td>{USER_ADMIN}</td>
+                                <td><input type="button" class="btn btn-xs btn-info" value="Editar"></td>
+                                <td><input type="button" class="btn btn-xs btn-danger" value="Eliminar"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,5 +108,6 @@
         
         <script src="static/vendors/jquery/js/jquery.min.js"></script>
         <script src="static/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="static/js/scripts.js"></script>
     </body>
 </html>

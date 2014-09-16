@@ -36,8 +36,7 @@ public class IndexServlet extends HttpServlet {
     static void install() {
 
         try {
-            UsersController.addAdminUser("admin", "1234");
-
+            UsersController.addUser("admin", "1234", true);
         } catch(InvalidParameterException e){
             System.err.println(e.getMessage());
         } catch (StorageException e) {

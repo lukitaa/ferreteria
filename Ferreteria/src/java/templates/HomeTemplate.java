@@ -32,7 +32,7 @@ public class HomeTemplate extends Template {
      */
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation home\">                     <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                     <div class=\"container menu\">                         <div class=\"row\">                             <a href=\"#first\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>                             <a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>                             <a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>                         </div>                     </div>                 </div>";
+        return "<div class=\"jumbotron presentation home\">                     <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                     <div class=\"container menu\">                         <div class=\"row\">                             <a href=\"usuarios\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>                             <a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>                             <a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>                         </div>                     </div>                 </div>";
     }
 
     @Override
@@ -52,6 +52,7 @@ public class HomeTemplate extends Template {
         return "<ul class=\"nav navbar-nav\">"
                 + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
+                + "<li><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">"
                 + "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";

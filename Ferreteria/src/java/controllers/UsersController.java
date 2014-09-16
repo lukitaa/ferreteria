@@ -30,7 +30,7 @@ import util.HibernateUtil;
  */
 public class UsersController extends IntermediateController {
 
-    private static Users addUser(String username, String password, boolean admin) throws InvalidParameterException, StorageException {
+    public static Users addUser(String username, String password, boolean admin) throws InvalidParameterException, StorageException {
 
         if (!validUsername(username))
             throw new InvalidParameterException("El nombre de usuario ingresado es invalido.");
@@ -63,14 +63,6 @@ public class UsersController extends IntermediateController {
             throw new StorageException("Error interno al intentar guardar el usuario.");
         }
 
-    }
-
-    public static Users addCommonUser(String username, String password) throws InvalidParameterException, StorageException {
-        return addUser(username, password, false);
-    }
-
-    public static void addAdminUser(String username, String password) throws InvalidParameterException, StorageException {
-        addUser(username, password, true);
     }
 
 
