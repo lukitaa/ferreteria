@@ -17,10 +17,10 @@
 
 package servlets;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +31,19 @@ import javax.servlet.http.HttpServletResponse;
  * @author alumno
  */
 public class PurchaseServlet extends HttpServlet {
-    
-    void processProducts(HttpServletRequest request, Hashtable purchaseDetails) {
-        Integer productAmount, productID;
-        
-        Enumeration e = purchaseDetails.keys();
-            while(e.hasMoreElements()){
-                productID = (Integer) e.nextElement();
-                productAmount = Integer.parseInt(request.getParameter("product-"+productID));
-                purchaseDetails.put(productID, productAmount);
-            }
+
+    void udpateProductsUnities(HttpServletRequest request, Map<Integer, Integer> purchaseDetails) {
+        Integer productAmount, productId;
+
+        for (Map.Entry<Integer, Integer> entry : purchaseDetails.entrySet()) {
+                productId     = entry.getKey();
+
+                // Get the amount of unities for the product from the request parameters
+                productAmount = Integer.parseInt(request.getParameter("product-" + productId));
+
+                // Update the value of unities in the map
+                purchaseDetails.put(productId, productAmount);
+        }
     }
 
     /**
@@ -54,34 +57,33 @@ public class PurchaseServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // User must be logged in to access this page!
         if (!Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
             return;
         }
-        
+
         SessionUser session = Common.getSessionUser(request);
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             //TODO: get products to buy from POST
-            Hashtable purchaseDetails = Common.getPurchaseDetails(request);
-            
-            processProducts(request, purchaseDetails);
-            
+            HashMap purchaseDetails = Common.getPurchaseDetails(request);
+
+            udpateProductsUnities(request, purchaseDetails);
+
             Integer id, cant;
-            
-            Enumeration e = purchaseDetails.keys();
-            while(e.hasMoreElements()){
-                id = (Integer) e.nextElement();
-                cant = (Integer) purchaseDetails.get(id);
-                
+
+            for (Map.Entry<Integer, Integer> entry : ((Map<Integer, Integer>)purchaseDetails).entrySet()) {
+                id   = entry.getKey();
+                cant = entry.getValue();
+
                 out.println("Producto de ID:" + id + " cantidad comprada:" + cant + " <br>");
             }
-            
-            
+
+
             //out.println(new templates.PurchaseTemplate().printPage("Compra", session));
         } finally {
             out.close();

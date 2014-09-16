@@ -17,8 +17,8 @@
 
 package servlets;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import entity.Users;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -52,11 +52,11 @@ public class Common {
     public static SessionUser getSessionUser(HttpServletRequest request) {
         return (SessionUser) request.getSession().getAttribute(SESSION_ATTR_NAME);
     }
-    
-    
+
+
     //PURCHASE STUFF
-    
-    public static HttpSession generatePurchaseDetails(HttpServletRequest request, Hashtable h) {
+
+    public static HttpSession generatePurchaseDetails(HttpServletRequest request, HashMap h) {
         HttpSession session = null;
 
         // Generate new session
@@ -67,7 +67,7 @@ public class Common {
         return session;
     }
 
-    public static Hashtable getPurchaseDetails(HttpServletRequest request) {
-        return (Hashtable) request.getSession().getAttribute(SESSION_ATTR_NAME_PURCHASE);
+    public static HashMap getPurchaseDetails(HttpServletRequest request) {
+        return (HashMap) request.getSession().getAttribute(SESSION_ATTR_NAME_PURCHASE);
     }
 }
