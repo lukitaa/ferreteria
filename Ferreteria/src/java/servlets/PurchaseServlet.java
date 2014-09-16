@@ -18,14 +18,9 @@
 package servlets;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
-import controllers.PurchaseController;
-import controllers.StorageException;
-import entity.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +28,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Lucio Martinez <luciomartinez at openmailbox dot org>
+ * @author alumno
  */
-public class ProductsServlet extends HttpServlet {
+public class PurchaseServlet extends HttpServlet {
+    
+    void processProducts(HttpServletRequest request, Hashtable purchaseDetails) {
+        Integer productAmount, productID;
+        
+        Enumeration e = purchaseDetails.keys();
+            while(e.hasMoreElements()){
+                productID = (Integer) e.nextElement();
+                productAmount = Integer.parseInt(request.getParameter("product-"+productID));
+                purchaseDetails.put(productID, productAmount);
+            }
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,33 +54,35 @@ public class ProductsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         // User must be logged in to access this page!
         if (!Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
             return;
         }
-
-        SessionUser session = Common.getSessionUser(request);
-        List<Products> products = null;
-        Hashtable compra = new Hashtable();
         
-        try {
-            products = PurchaseController.getProducts();
-            
-            /// Store in session the details of the purchase
-            for(Products p : products){
-                compra.put(p.getIdProduct(), 0);
-            }
-            Common.generatePurchaseDetails(request, compra);
-        } catch (StorageException ex) {
-            Logger.getLogger(ProductsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        SessionUser session = Common.getSessionUser(request);
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.ProductsTemplate(products).printPage("Productos", session));
+            //TODO: get products to buy from POST
+            Hashtable purchaseDetails = Common.getPurchaseDetails(request);
+            
+            processProducts(request, purchaseDetails);
+            
+            Integer id, cant;
+            
+            Enumeration e = purchaseDetails.keys();
+            while(e.hasMoreElements()){
+                id = (Integer) e.nextElement();
+                cant = (Integer) purchaseDetails.get(id);
+                
+                out.println("Producto de ID:" + id + " cantidad comprada:" + cant + " <br>");
+            }
+            
+            
+            //out.println(new templates.PurchaseTemplate().printPage("Compra", session));
         } finally {
             out.close();
         }

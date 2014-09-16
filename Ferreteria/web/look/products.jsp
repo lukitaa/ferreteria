@@ -66,7 +66,7 @@
                 <!-- BEGINS CONTENT -->
                 <div class="jumbotron presentation products">
                     <h1 class="header">Comprar productos</h1>
-                    <form class="products" action="javascript:console.log(0)">
+                    <form class="products" action="productos/compra" method="post">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

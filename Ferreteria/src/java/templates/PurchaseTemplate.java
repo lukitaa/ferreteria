@@ -17,47 +17,17 @@
 
 package templates;
 
-import entity.Products;
-import java.util.List;
 import servlets.SessionUser;
 
 /**
  *
- * @author Lucio Martinez <luciomartinez at openmailbox dot org>
+ * @author alumno
  */
-public class ProductsTemplate extends Template {
-
-    private List<Products> products;
-
-    public ProductsTemplate(List<Products> products) {
-        this.products = products;
-    }
-
-    private String printProducstInRows() {
-        String rows = "";
-
-        for (Products p : products) {
-            rows += "<tr>"
-                + "<td>" + p.getProduct() + "</td>" // PRODUCT NAME
-                + "<td class=\"price\">" + p.getPrice() + "</td>" // PRODUCT PRICE
-                + "<td class=\"stock\">" + p.getStock() + "</td>" // PRODUCT STOCK
-                + "<td><input type=\"number\" name=\"product-" + p.getIdProduct() + "\" min=\"0\" max=\"" + p.getStock() + "\" value=\"0\"></td>"
-                + "</tr>";
-        }
-
-        return rows;
-    }
+public class PurchaseTemplate extends Template {
 
     @Override
     public String printContent(Object data) {
-        String content = "";
-
-        content += "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Comprar productos</h1>                    <form class=\"products\" action=\"productos/compra\" method=\"post\">                        <table class=\"table table-bordered\">                            <thead>                                <tr>                                    <th>Producto</th>                                    <th>Precio</th>                                    <th>Unidades</th>                                    <th>Agregar</th>                                </tr>                            </thead>"
-                + "<tbody>"
-                + printProducstInRows()
-                + "</tbody>                         </table>                         <button type=\"submit\" class=\"btn btn-primary\">Comprar</button>                     </form>                 </div>";
-
-        return content;
+        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Detalle compra</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Producto</th>                                <th>Precio</th>                                <th>Unidades</th>                            </tr>                        </thead>                        <tbody>                            <tr>                                <td>{PRODUCT_NAME}</td>                                <td class=\"price\">{PRODUCT_PRICE}</td>                                <td class=\"stock\">{PRODUCT_STOCK}</td>                            </tr>                        </tbody>                    </table>                    <p class=\"lead\">Total: ${PURCHASE_TOTAL}</p>                </div>";
     }
 
     @Override
@@ -91,5 +61,5 @@ public class ProductsTemplate extends Template {
                 + Template.printEndContainer()
                 + Template.printFooter();
     }
-
+    
 }

@@ -21,6 +21,6 @@ package controllers;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class ProductsController extends IntermediateController {
+public class PurchaseController extends IntermediateController {
 
 }

@@ -22,6 +22,10 @@
         <servlet-name>Products</servlet-name>
         <servlet-class>servlets.ProductsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PurchaseServlet</servlet-name>
+        <servlet-class>servlets.PurchaseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>Products</servlet-name>
         <url-pattern>/productos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PurchaseServlet</servlet-name>
+        <url-pattern>/productos/compra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
