@@ -17,12 +17,12 @@
 
 package servlets;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import controllers.PurchaseController;
 import controllers.StorageException;
 import entity.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,16 +57,16 @@ public class ProductsServlet extends HttpServlet {
 
         SessionUser session = Common.getSessionUser(request);
         List<Products> products = null;
-        Hashtable compra = new Hashtable();
-        
+        HashMap<Integer, Integer> purchaseProducts = new HashMap();
+
         try {
             products = PurchaseController.getProducts();
-            
+
             /// Store in session the details of the purchase
             for(Products p : products){
-                compra.put(p.getIdProduct(), 0);
+                purchaseProducts.put(p.getIdProduct(), 0);
             }
-            Common.generatePurchaseDetails(request, compra);
+            Common.generatePurchaseDetails(request, purchaseProducts);
         } catch (StorageException ex) {
             Logger.getLogger(ProductsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

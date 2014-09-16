@@ -27,7 +27,7 @@ public class HomeTemplate extends Template {
 
     /**
      *
-     * @parHomeTemplateata Home has no use in this parameter
+     * @param data Home has no use in this parameter
      * @return
      */
     @Override
