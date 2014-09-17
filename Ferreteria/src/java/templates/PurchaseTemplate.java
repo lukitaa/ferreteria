@@ -17,6 +17,9 @@
 
 package templates;
 
+import entity.Details;
+import java.util.HashMap;
+import java.util.List;
 import servlets.SessionUser;
 
 /**
@@ -25,9 +28,34 @@ import servlets.SessionUser;
  */
 public class PurchaseTemplate extends Template {
 
+    List<Details> purchaseDetails;
+    int purchaseTotal;
+    
+    public PurchaseTemplate(List<Details> purchaseDetails, int purchaseTotal){
+        this.purchaseDetails = purchaseDetails;
+        this.purchaseTotal = purchaseTotal;
+    }
+    
+    private String printAllDetailsInRow(){
+        String rows = "";
+        
+        for (Details d : purchaseDetails) {
+            rows += "<tr>"
+                + "<td>" + d.getProducts().getProduct() + "</td>" 
+                + "<td class=\"price\">" + d.getPrice() + "</td>" 
+                + "<td class=\"stock\">" + d.getAmount() + "</td>" 
+                + "</tr>";
+        }
+
+        return rows;
+    }
+    
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Detalle compra</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Producto</th>                                <th>Precio</th>                                <th>Unidades</th>                            </tr>                        </thead>                        <tbody>                            <tr>                                <td>{PRODUCT_NAME}</td>                                <td class=\"price\">{PRODUCT_PRICE}</td>                                <td class=\"stock\">{PRODUCT_STOCK}</td>                            </tr>                        </tbody>                    </table>                    <p class=\"lead\">Total: ${PURCHASE_TOTAL}</p>                </div>";
+        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Detalle compra</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Producto</th>                                <th>Precio</th>                                <th>Unidades</th>                            </tr>                        </thead>"
+                + "<tbody>"
+                + printAllDetailsInRow()
+                + "</tbody>                    </table>                    <p class=\"lead\">Total: $" + purchaseTotal + "</p>                </div>";
     }
 
     @Override

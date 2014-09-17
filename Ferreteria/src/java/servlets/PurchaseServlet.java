@@ -17,10 +17,17 @@
 
 package servlets;
 
+import controllers.PurchaseController;
+import controllers.StorageException;
+import entity.Details;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,15 +41,23 @@ public class PurchaseServlet extends HttpServlet {
 
     void udpateProductsUnities(HttpServletRequest request, Map<Integer, Integer> purchaseDetails) {
         Integer productAmount, productId;
+        ArrayList<Integer> productsIdToRemoveFromPurchase = new ArrayList();
 
         for (Map.Entry<Integer, Integer> entry : purchaseDetails.entrySet()) {
                 productId     = entry.getKey();
 
                 // Get the amount of unities for the product from the request parameters
                 productAmount = Integer.parseInt(request.getParameter("product-" + productId));
-
-                // Update the value of unities in the map
-                purchaseDetails.put(productId, productAmount);
+                
+                
+                if(productAmount > 0)
+                    purchaseDetails.put(productId, productAmount);
+                else
+                    productsIdToRemoveFromPurchase.add(productId);
+        }
+        
+        for (Integer pId : productsIdToRemoveFromPurchase) {
+            purchaseDetails.remove(pId);
         }
     }
 
@@ -65,26 +80,29 @@ public class PurchaseServlet extends HttpServlet {
         }
 
         SessionUser session = Common.getSessionUser(request);
+        
+        //TODO: get products to buy from POST
+        HashMap purchaseDetails = Common.getPurchaseDetails(request);
+        udpateProductsUnities(request, purchaseDetails);
+        boolean error = false;
+        int purchaseTotal = 0;
+        
+        List<Details> details = null;
+        try {
+            details = PurchaseController.purchaseProducts(purchaseDetails, session.getIdUser());
+            
+            for (Details d : details) {
+                purchaseTotal += d.getAmount() * d.getPrice();
+            }
+        } catch (StorageException ex) {
+            error = true;
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //TODO: get products to buy from POST
-            HashMap purchaseDetails = Common.getPurchaseDetails(request);
 
-            udpateProductsUnities(request, purchaseDetails);
-
-            Integer id, cant;
-
-            for (Map.Entry<Integer, Integer> entry : ((Map<Integer, Integer>)purchaseDetails).entrySet()) {
-                id   = entry.getKey();
-                cant = entry.getValue();
-
-                out.println("Producto de ID:" + id + " cantidad comprada:" + cant + " <br>");
-            }
-
-
-            //out.println(new templates.PurchaseTemplate().printPage("Compra", session));
+            out.println(new templates.PurchaseTemplate(details, purchaseTotal).printPage("DetallesCompra", session));
         } finally {
             out.close();
         }
