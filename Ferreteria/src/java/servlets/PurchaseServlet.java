@@ -39,27 +39,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PurchaseServlet extends HttpServlet {
 
-    void udpateProductsUnities(HttpServletRequest request, Map<Integer, Integer> purchaseDetails) {
-        Integer productAmount, productId;
-        ArrayList<Integer> productsIdToRemoveFromPurchase = new ArrayList();
-
-        for (Map.Entry<Integer, Integer> entry : purchaseDetails.entrySet()) {
-                productId     = entry.getKey();
-
-                // Get the amount of unities for the product from the request parameters
-                productAmount = Integer.parseInt(request.getParameter("product-" + productId));
-                
-                
-                if(productAmount > 0)
-                    purchaseDetails.put(productId, productAmount);
-                else
-                    productsIdToRemoveFromPurchase.add(productId);
-        }
-        
-        for (Integer pId : productsIdToRemoveFromPurchase) {
-            purchaseDetails.remove(pId);
-        }
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,25 +61,41 @@ public class PurchaseServlet extends HttpServlet {
         SessionUser session = Common.getSessionUser(request);
         
         //TODO: get products to buy from POST
-        HashMap purchaseDetails = Common.getPurchaseDetails(request);
-        udpateProductsUnities(request, purchaseDetails);
+        ShoppingCart purchaseDetails = Common.getCart(request);
         boolean error = false;
         int purchaseTotal = 0;
         
-        List<Details> details = null;
+        List<Details> details = new ArrayList();
+        
+        if (purchaseDetails == null) {
+            response.sendRedirect("/Ferreteria/productos");
+            return;
+        }
+        
         try {
             details = PurchaseController.purchaseProducts(purchaseDetails, session.getIdUser());
             
             for (Details d : details) {
                 purchaseTotal += d.getAmount() * d.getPrice();
             }
+            
+            //CLEAR THE SESSION WITH PRODUCTS
+            Common.destroyCart(request);
         } catch (StorageException ex) {
             error = true;
+        }
+        
+        
+        if (error || details.size() <= 0) {
+            response.sendRedirect("/Ferreteria/productos");
+            return;
         }
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
+            
 
             out.println(new templates.PurchaseTemplate(details, purchaseTotal).printPage("DetallesCompra", session));
         } finally {

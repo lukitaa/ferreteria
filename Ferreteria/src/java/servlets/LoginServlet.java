@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         // If user is logged, do not login *again*!
         if (Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/index");

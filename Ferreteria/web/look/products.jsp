@@ -89,6 +89,7 @@
                             </form>                                
                         </tbody>
                     </table>
+                    <a href="productos/compra" class="btn btn-xs btn-primary">Comprar</a>
                 </div>
                 <!-- ENDS CONTENT -->
             </div>

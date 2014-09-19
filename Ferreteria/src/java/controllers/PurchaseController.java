@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import servlets.ShoppingCart;
 import util.HibernateUtil;
 
 /**
@@ -118,7 +119,7 @@ public class PurchaseController extends IntermediateController {
         }
     }
     
-    public static List<Details> purchaseProducts(Map<Integer, Integer> purchaseDetails, Integer userId) throws StorageException {
+    public static List<Details> purchaseProducts(ShoppingCart purchaseDetails, Integer userId) throws StorageException {
         Integer productAmount, productId;
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -131,9 +132,9 @@ public class PurchaseController extends IntermediateController {
         List<Details> detailsToStore = new ArrayList();
         Products product = null;
 
-        for (Map.Entry<Integer, Integer> entry : purchaseDetails.entrySet()) {
-            productId     = entry.getKey();
-            productAmount = entry.getValue();
+        for(int i = 0; i < purchaseDetails.getProductsId().size(); i++){
+            productId     = purchaseDetails.getProductsId().get(i);
+            productAmount = purchaseDetails.getProductsAmount().get(i);
             
             try {
                 product = getProduct(productId, session);

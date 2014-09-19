@@ -58,7 +58,7 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //install();
-
+        
         // If user is logged in, redirect to the home page
         if (Common.userIsLogged(request))
             response.sendRedirect("/Ferreteria/inicio");

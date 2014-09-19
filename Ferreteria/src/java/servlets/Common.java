@@ -54,23 +54,6 @@ public class Common {
         return (SessionUser) request.getSession().getAttribute(SESSION_ATTR_NAME);
     }
 
-
-    //PURCHASE STUFF
-
-    public static HttpSession generatePurchaseDetails(HttpServletRequest request, HashMap h) {
-        HttpSession session = null;
-
-        // Generate new session
-        session = request.getSession();
-
-        session.setAttribute(SESSION_ATTR_NAME_PURCHASE, h);
-
-        return session;
-    }
-
-    public static HashMap getPurchaseDetails(HttpServletRequest request) {
-        return (HashMap) request.getSession().getAttribute(SESSION_ATTR_NAME_PURCHASE);
-    }
     
     //SHOPPING CART STUFF
     
@@ -87,5 +70,9 @@ public class Common {
 
     public static ShoppingCart getCart(HttpServletRequest request) {
         return (ShoppingCart) request.getSession().getAttribute(SESSION_ATTR_NAME_CART);
+    }
+    
+    public static void destroyCart(HttpServletRequest request) {
+        request.getSession().setAttribute(SESSION_ATTR_NAME_CART, null);
     }
 }

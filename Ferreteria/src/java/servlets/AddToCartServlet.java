@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author alumno
  */
 @WebServlet(name = "AddToCart", urlPatterns = {"/carrito"})
-public class AddToCart extends HttpServlet {
+public class AddToCartServlet extends HttpServlet {
     
     
     public void updateCart(ShoppingCart shoppingCart, Integer productId, Integer productAmount) {
@@ -81,7 +81,8 @@ public class AddToCart extends HttpServlet {
         String receivedProductId = request.getParameter("product-id"),
                receivedProductAmount = request.getParameter("product-stock");
         
-        if (receivedProductId != null && receivedProductAmount != null) {
+        if (receivedProductId != null && receivedProductAmount != null
+                && !receivedProductId.isEmpty() && !receivedProductAmount.isEmpty()) {
             int productId = Integer.valueOf(receivedProductId), productAmount = Integer.valueOf(receivedProductAmount);
             
             if (productAmount > 0)

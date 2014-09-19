@@ -60,7 +60,7 @@ public class ProductsTemplate extends Template {
                 + "<tbody>"
                 + printProducstInRows()
                 + "</tbody>"
-                + "</table></div>";
+                + "</table><a href=\"productos/compra\" class=\"btn btn-xs btn-primary\">Comprar</a></div>";
 
         return content;
     }
