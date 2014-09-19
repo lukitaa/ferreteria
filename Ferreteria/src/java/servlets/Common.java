@@ -29,7 +29,8 @@ import javax.servlet.http.HttpSession;
 public class Common {
 
     private static String SESSION_ATTR_NAME = "session_user",
-                          SESSION_ATTR_NAME_PURCHASE = "purchase_details";
+                          SESSION_ATTR_NAME_PURCHASE = "purchase_details",
+                          SESSION_ATTR_NAME_CART = "shopping_cart";
 
     public static boolean userIsLogged(HttpServletRequest request) {
         // Get the session or generate it if doesn't exist already
@@ -69,5 +70,22 @@ public class Common {
 
     public static HashMap getPurchaseDetails(HttpServletRequest request) {
         return (HashMap) request.getSession().getAttribute(SESSION_ATTR_NAME_PURCHASE);
+    }
+    
+    //SHOPPING CART STUFF
+    
+    public static HttpSession generateCart(HttpServletRequest request, ShoppingCart c) {
+        HttpSession session = null;
+
+        // Generate new session
+        session = request.getSession();
+
+        session.setAttribute(SESSION_ATTR_NAME_CART, c);
+
+        return session;
+    }
+
+    public static ShoppingCart getCart(HttpServletRequest request) {
+        return (ShoppingCart) request.getSession().getAttribute(SESSION_ATTR_NAME_CART);
     }
 }

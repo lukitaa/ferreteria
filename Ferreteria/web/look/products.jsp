@@ -66,27 +66,29 @@
                 <!-- BEGINS CONTENT -->
                 <div class="jumbotron presentation products">
                     <h1 class="header">Comprar productos</h1>
-                    <form class="products" action="productos/compra" method="post">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Precio</th>
-                                    <th>Unidades</th>
-                                    <th>Agregar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Unidades</th>
+                                <th>Agregar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form class="products" action="carrito" method="post">
+                                <input type="hidden" name="product-id" value="{PRODUCT_ID}">
                                 <tr>
                                     <td>{PRODUCT_NAME}</td>
                                     <td class="price">{PRODUCT_PRICE}</td>
                                     <td class="stock">{PRODUCT_STOCK}</td>
-                                    <td><input type="number" name="product-{PRODUCT_ID}" min="0" max="{PRODUCT_STOCK}" value="0"></td>
+                                    <td><input type="number" name="product-stock" min="0" max="{PRODUCT_STOCK}" value="0"></td>
+                                    <td><button type="submit" class="btn btn-xs btn-primary">Agregar</button></td>
                                 </tr>
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-primary">Comprar</button>
-                    </form>
+                            </form>                                
+                        </tbody>
+                    </table>
                 </div>
                 <!-- ENDS CONTENT -->
             </div>

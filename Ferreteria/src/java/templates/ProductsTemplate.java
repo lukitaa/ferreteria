@@ -37,12 +37,16 @@ public class ProductsTemplate extends Template {
         String rows = "";
 
         for (Products p : products) {
-            rows += "<tr>"
+            rows += "<form class=\"products\" action=\"carrito\" method=\"post\">"
+                + "<input type=\"hidden\" name=\"product-id\" value=\"" + p.getIdProduct() +  "\">"
+                + "<tr>"
                 + "<td>" + p.getProduct() + "</td>" // PRODUCT NAME
                 + "<td class=\"price\">" + p.getPrice() + "</td>" // PRODUCT PRICE
                 + "<td class=\"stock\">" + p.getStock() + "</td>" // PRODUCT STOCK
-                + "<td><input type=\"number\" name=\"product-" + p.getIdProduct() + "\" min=\"0\" max=\"" + p.getStock() + "\" value=\"0\"></td>"
-                + "</tr>";
+                + "<td><input type=\"number\" name=\"product-stock\" min=\"0\" max=\"" + p.getStock() + "\" value=\"0\"></td>"
+                + "<td><button type=\"submit\" class=\"btn btn-xs btn-primary\">Agregar</button></td>"
+                + "</tr>"
+                + "</form>";
         }
 
         return rows;
@@ -52,10 +56,11 @@ public class ProductsTemplate extends Template {
     public String printContent(Object data) {
         String content = "";
 
-        content += "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Comprar productos</h1>                    <form class=\"products\" action=\"productos/compra\" method=\"post\">                        <table class=\"table table-bordered\">                            <thead>                                <tr>                                    <th>Producto</th>                                    <th>Precio</th>                                    <th>Unidades</th>                                    <th>Agregar</th>                                </tr>                            </thead>"
+        content += "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Comprar productos</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Producto</th>                                <th>Precio</th>                                <th>Stock</th>                                <th>Unidades</th>                                <th>Agregar</th>                            </tr>                        </thead>"
                 + "<tbody>"
                 + printProducstInRows()
-                + "</tbody>                         </table>                         <button type=\"submit\" class=\"btn btn-primary\">Comprar</button>                     </form>                 </div>";
+                + "</tbody>"
+                + "</table></div>";
 
         return content;
     }

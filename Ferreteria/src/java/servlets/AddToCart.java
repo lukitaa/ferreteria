@@ -17,25 +17,39 @@
 
 package servlets;
 
-import controllers.PurchaseController;
-import controllers.StorageException;
-import entity.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Lucio Martinez <luciomartinez at openmailbox dot org>
+ * @author alumno
  */
-public class ProductsServlet extends HttpServlet {
-
+@WebServlet(name = "AddToCart", urlPatterns = {"/carrito"})
+public class AddToCart extends HttpServlet {
+    
+    
+    public void updateCart(ShoppingCart shoppingCart, Integer productId, Integer productAmount) {
+        //Go trought all the list searching if the product was already in the cart
+        boolean exists = false;
+        for(int i = 0; i < shoppingCart.getProductsId().size(); i++){
+            //If it's in, add the new amount and the older one
+            if(shoppingCart.getProductsId().get(i) == productId){
+                int aux = shoppingCart.getProductsAmount().get(i) + productAmount;
+                shoppingCart.getProductsAmount().set(i, aux);
+                exists = true;
+            }
+        }
+        if(!exists){
+            shoppingCart.getProductsId().add(productId);
+            shoppingCart.getProductsAmount().add(productAmount);
+        }
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,25 +67,36 @@ public class ProductsServlet extends HttpServlet {
             response.sendRedirect("/Ferreteria/login");
             return;
         }
-
-        SessionUser session = Common.getSessionUser(request);
-        List<Products> products = null;
-
-        try {
-            products = PurchaseController.getProducts();
-        } catch (StorageException ex) {
-            Logger.getLogger(ProductsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        
+        
+        ShoppingCart shoppingCart = Common.getCart(request);
+        
+        // Check if this is the first item to add into the cart
+        if (shoppingCart == null) {
+            shoppingCart = new ShoppingCart();
+            Common.generateCart(request, shoppingCart);
         }
-
+        
+        // Get the amount of unities for the product from the request parameters
+        String receivedProductId = request.getParameter("product-id"),
+               receivedProductAmount = request.getParameter("product-stock");
+        
+        if (receivedProductId != null && receivedProductAmount != null) {
+            int productId = Integer.valueOf(receivedProductId), productAmount = Integer.valueOf(receivedProductAmount);
+            
+            if (productAmount > 0)
+                updateCart(shoppingCart, productId, productAmount);
+        }
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.ProductsTemplate(products).printPage("Productos", session));
+
+            response.sendRedirect("productos");
         } finally {
             out.close();
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
