@@ -65,7 +65,7 @@
                 </ol>
                 <!-- ENDS BREADCRUMBS -->
                 <!-- BEGINS CONTENT -->
-                <div class="jumbotron">
+                <div class="jumbotron presentation users">
                     <h1>ABM Usuarios</h1>
                     <form class="form-inline" role="form" action="/usuarios/agregar" method="post">
                         <div class="form-group">
@@ -93,12 +93,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{USER_NAME}</td>
-                                <td>{USER_ADMIN}</td>
-                                <td><input type="button" class="btn btn-xs btn-info" value="Editar"></td>
-                                <td><input type="button" class="btn btn-xs btn-danger" value="Eliminar"></td>
-                            </tr>
+                            <form action="DeleteUserServlet" method="post">
+                                <input type="hidden" name="user-id" value="{USER_ID}">
+                                <tr>
+                                    <td>{USER_NAME}</td>
+                                    <td>{USER_ADMIN}</td>
+                                    <td><a href="#" class="btn btn-xs btn-info">Editar</a></td>
+                                    <td><input type="submit" class="btn btn-xs btn-danger" value="Eliminar"></td>
+                                </tr>
+                            </form>
                         </tbody>
                     </table>
                 </div>

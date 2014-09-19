@@ -92,3 +92,11 @@ body > .container {
 .products .btn {
     text-transform: uppercase;
 }
+
+
+/**       **/
+/*  USERS  */
+/**       **/
+.users .table {
+    margin-top: 10px;
+}
