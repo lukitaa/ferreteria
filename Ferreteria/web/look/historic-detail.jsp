@@ -72,17 +72,20 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID Compra</th>
-                                <th>Total Precio</th>
+                                <th>Producto</th>
+                                <th>Precio Historico</th>
+                                <th>Unidades</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{ID_PURCHASE}</td>
-                                <td>{PURCHASE_TOTAL}</td>
+                                <td>{PRODUCT_NAME}</td>
+                                <td>{PRODUCT_PRICE_HISTORIC}</td>
+                                <td>{PRODUCT_UNITIES}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <p class="lead">Total: ${PURCHASE_TOTAL}</p>
                 </div>
                 <!-- ENDS CONTENT -->
             </div>

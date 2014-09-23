@@ -17,12 +17,21 @@
 
 package servlets;
 
+import controllers.StorageException;
+import controllers.UsersController;
+import entity.Details;
+import entity.Purchases;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
+import util.HibernateUtil;
 
 /**
  *
@@ -51,18 +60,34 @@ public class HistoricDetailServlet extends HttpServlet {
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
 
-        String user = request.getParameter("usuario");
+        String userId = request.getParameter("usuario");
 
         //TODO: recover purchase data
+        Set<Purchases> purchases = null;
+        Set<Details> purchaseDetails = null;
+
+        //TODO: handle correctly hibernate exceptions
+        // Take note that when the hibernate session is closed below,
+        // it may have been closed before.
+
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
+        if (userId != null && !userId.isEmpty()) {
+            try {
+                purchases = UsersController.getUserPurchases(Integer.parseInt(userId), sessionHibernate);
+            } catch (StorageException ex) {//TODO: do something
+                Logger.getLogger(HistoricDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.HistoricDetailTemplate().printPage("Historial detalle", session, shoppingCart));
+            out.println(new templates.HistoricDetailTemplate(purchases).printPage("Historial detalle", session, shoppingCart));
         } finally {
             out.close();
         }
+        sessionHibernate.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

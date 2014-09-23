@@ -17,6 +17,9 @@
 
 package templates;
 
+import entity.Details;
+import entity.Purchases;
+import java.util.Set;
 import servlets.SessionUser;
 import servlets.ShoppingCart;
 
@@ -26,9 +29,71 @@ import servlets.ShoppingCart;
  */
 public class HistoricDetailTemplate extends Template {
 
+    private Set<Purchases> purchases;
+
+    public HistoricDetailTemplate(Set<Purchases> purchases) {
+        this.purchases = purchases;
+    }
+
+
+    private String printAllDetailsInRow(Set<Details> purchaseDetails){
+        String rows = "";
+
+        for (Details d : purchaseDetails) {
+            rows += "<tr>"
+                + "<td>" + d.getProducts().getProduct() + "</td>"
+                + "<td>" + d.getPrice() + "</td>"
+                + "<td>" + d.getAmount() + "</td>"
+                + "</tr>";
+        }
+
+        return rows;
+    }
+
+    private int getTotalPurchase(Set<Details> purchaseDetails) {
+        int totalPurchase = 0;
+
+        for (Details d : purchaseDetails) {
+            totalPurchase += d.getAmount() * d.getPrice();
+        }
+
+        return totalPurchase;
+    }
+
+    private String printAllPurchasesTable(){
+        String tables = "";
+
+        for (Purchases p : purchases) {
+            tables += "<table class=\"table table-bordered\">                        <thead>                            <tr>"
+                    + "<th>Producto</th>                                <th>Precio Historico</th>                                <th>Unidades</th>"
+                    + "</tr>                        </thead>"
+                    + "<tbody>"
+                    + printAllDetailsInRow(p.getDetailses())
+                    + "</tbody>"
+                    + "</table>"
+                    + "<p class=\"lead\">Total: $" + getTotalPurchase(p.getDetailses()) + "</p>";
+        }
+
+        return tables;
+    }
+
+
+
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Compras realizadas</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>ID Compra</th>                                <th>Total Precio</th>                            </tr>                        </thead>                        <tbody>                            <tr>                                <td>{ID_PURCHASE}</td>                                <td>{PURCHASE_TOTAL}</td>                            </tr>                        </tbody>                    </table>                </div>";
+        String content = "";
+
+        content += "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Compras realizadas</h1>";
+
+        if (purchases != null && purchases.size() > 0) {
+            content += printAllPurchasesTable();
+        } else {
+            content += "<p class=\"lead\">El cliente no ha realizado compras.</p>";
+        }
+
+        content += "</div>";
+
+        return content;
     }
 
     @Override

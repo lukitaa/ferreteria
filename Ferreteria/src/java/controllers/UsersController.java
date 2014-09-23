@@ -18,7 +18,9 @@
 package controllers;
 
 import dao.UsersDaoImpl;
+import entity.Purchases;
 import entity.Users;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.mindrot.jbcrypt.BCrypt;
@@ -98,6 +100,36 @@ public class UsersController extends IntermediateController {
             session.close();
 
             return u;
+
+        } catch(HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                session.close();
+            }
+
+            throw new StorageException("Error interno al intentar cargar el usuario.");
+        }
+    }
+
+    public static Set<Purchases> getUserPurchases(int userId, Session session) throws StorageException {
+        Set<Purchases> purchases;
+
+        
+        try {
+            session.beginTransaction();
+
+            Users u = new UsersDaoImpl(session).get(userId);
+            purchases = u.getPurchaseses();
+
+            // WARNING!!!
+            // The crap collector will remove purchases
+            // if it is not used. So you better leave this line!
+            //System.out.println(purchases.size());
+
+            session.getTransaction().commit();
+
+
+            return purchases;
 
         } catch(HibernateException e) {
             if (session != null) {
