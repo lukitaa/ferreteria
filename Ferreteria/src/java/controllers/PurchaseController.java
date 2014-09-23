@@ -68,8 +68,16 @@ public class PurchaseController extends IntermediateController {
                 // Recover product data
                 product = new ProductsDaoImpl(session).get(productId);
 
+                // Check if amount to buy is available,
+                // otherwise cancel the procedure
+                if (productAmount <= 0 || productAmount > product.getStock())
+                    throw new HibernateException("Stock not available.");//TODO: throw an invalid parameter exception
+
                 // Add the detail to the list
                 detailsToStore.add(new Details(purchase, product, productAmount, product.getPrice()));
+
+                // Update product stock
+                product.setStock(product.getStock() - productAmount);
             }
 
             // Now the details list is complete and gotta be stored
