@@ -17,6 +17,7 @@
 
 package templates;
 
+import servlets.SessionUser;
 import servlets.ShoppingCart;
 
 /**
@@ -25,12 +26,13 @@ import servlets.ShoppingCart;
  */
 public abstract class Template {
 
-    static String APP_ROOT = "/Ferreteria" + "/";
+    protected SessionUser sessionUser;
+    protected static String APP_ROOT = "/Ferreteria" + "/";
 
     public abstract String printContent(Object data);
     public abstract String printBreadcrumbs();
-    public abstract String printNav(Object data, ShoppingCart shoppingCart);
-    public abstract String printPage(String title, Object data, ShoppingCart shoppingCart);
+    public abstract String printNav(ShoppingCart shoppingCart);
+    public abstract String printPage(String title, Object session, ShoppingCart shoppingCart);
 
     public static String printHeader(String title) {
         return "<!DOCTYPE html> <html lang=\"es\" dir=\"ltr\">     <head>         <meta charset=\"utf-8\">         <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">                  <title>Ferreter&iacute;a - " + title + "</title>                  <base href=\"" + APP_ROOT + "\" >                  <link href=\"static/css/styles.css\" rel=\"stylesheet\">         <link href=\"static/vendors/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">         <link href=\"static/vendors/bootstrap/css/bootstrap-theme.min.css\" rel=\"stylesheet\">                  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->         <!--[if lt IE 9]>             <script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>             <script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>         <![endif]-->     </head>     <body>";

@@ -66,8 +66,8 @@ public class LoginTemplate extends Template {
      * @return
      */
     @Override
-    public String printNav(Object data, ShoppingCart useless) {
-        String date = (data != null) ? (String)data : "";
+    public String printNav(ShoppingCart useless) {
+        String date = new SimpleDateFormat("dd 'of' MMM, yyyy").format(Calendar.getInstance().getTime());
         return "<ul class=\"nav navbar-nav\">                         <li><a href=\"inicio\">Inicio</a></li>                         <li class=\"active\"><a href=\"login\">Login</a></li>                     </ul>                     <ul class=\"nav navbar-nav navbar-right\">"
                 + "<li><a>" + date + "</a></li>"
                 + "</ul>";
@@ -81,12 +81,10 @@ public class LoginTemplate extends Template {
      */
     @Override
     public String printPage(String title, Object data, ShoppingCart useless) {
-        // Get the date
-        String date = new SimpleDateFormat("dd 'of' MMM, yyyy").format(Calendar.getInstance().getTime());
         // Print the full page
         return Template.printHeader(title)
                 + Template.printInitNav()
-                + this.printNav(date, useless)
+                + this.printNav(useless)
                 + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()

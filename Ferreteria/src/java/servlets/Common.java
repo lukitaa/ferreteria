@@ -18,7 +18,6 @@
 package servlets;
 
 import entity.Users;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +30,15 @@ public class Common {
     private static String SESSION_ATTR_NAME = "session_user",
                           SESSION_ATTR_NAME_PURCHASE = "purchase_details",
                           SESSION_ATTR_NAME_CART = "shopping_cart";
+
+    public static boolean adminIsLogged(HttpServletRequest request) {
+        // Get the session or generate it if doesn't exist already
+        HttpSession session = request.getSession();
+        // Get user from session
+        SessionUser s = (SessionUser) session.getAttribute(SESSION_ATTR_NAME);
+        // Check for user already logged in and it has to be an admin
+        return (s != null && s.isAdmin());
+    }
 
     public static boolean userIsLogged(HttpServletRequest request) {
         // Get the session or generate it if doesn't exist already
@@ -54,9 +62,9 @@ public class Common {
         return (SessionUser) request.getSession().getAttribute(SESSION_ATTR_NAME);
     }
 
-    
+
     //SHOPPING CART STUFF
-    
+
     public static HttpSession generateCart(HttpServletRequest request, ShoppingCart c) {
         HttpSession session = null;
 
@@ -71,7 +79,7 @@ public class Common {
     public static ShoppingCart getCart(HttpServletRequest request) {
         return (ShoppingCart) request.getSession().getAttribute(SESSION_ATTR_NAME_CART);
     }
-    
+
     public static void destroyCart(HttpServletRequest request) {
         request.getSession().setAttribute(SESSION_ATTR_NAME_CART, null);
     }

@@ -47,26 +47,31 @@ public class DeleteUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
+        // An admin must be logged in to access this page!
+        if (!Common.adminIsLogged(request)) {
+            response.sendRedirect("/Ferreteria/login");
+            return;
+        }
+
         String recievedId = request.getParameter("user-id");
         int userId;
-        
+
         if (recievedId != null && !recievedId.isEmpty()) {
-            
+
             userId = Integer.valueOf(recievedId);
-            
+
             try {
                 Users u = UsersController.getUser(userId);
-                
+
                 UsersController.deleteUser(u);
             } catch (StorageException ex) {//TODO: do something
                 Logger.getLogger(DeleteUserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        //Check if this redirect URL works, otherwise use /Ferreteria/usuarios
-        response.sendRedirect("usuarios");
+
+        // Do not display success/error messages
+        response.sendRedirect("/Ferreteria/usuarios");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -107,5 +112,5 @@ public class DeleteUserServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

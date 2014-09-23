@@ -49,31 +49,33 @@ public class HomeTemplate extends Template {
      * @return the nav template
      */
     @Override
-    public String printNav(Object data, ShoppingCart shoppingCart) {
+    public String printNav(ShoppingCart shoppingCart) {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
-        String username = ((SessionUser)data).getUsername(),
+        String username = sessionUser.getUsername(),
                content  = "";
-        
+
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
                 + "<li><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
-        
+
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
-        
+
         content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
-        
+
         return content;
     }
 
     @Override
-    public String printPage(String title, Object data, ShoppingCart shoppingCart) {
+    public String printPage(String title, Object session, ShoppingCart shoppingCart) {
+        sessionUser = (SessionUser)session;
+
         return Template.printHeader(title)
                 + Template.printInitNav()
-                + this.printNav(data, shoppingCart)
+                + this.printNav(shoppingCart)
                 + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()

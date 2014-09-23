@@ -85,6 +85,12 @@ public class EditUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // An admin must be logged in to access this page!
+        if (!Common.adminIsLogged(request)) {
+            response.sendRedirect("/Ferreteria/login");
+            return;
+        }
+
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
 

@@ -45,8 +45,8 @@ public class AddUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request)) {
+        // An admin must be logged in to access this page!
+        if (!Common.adminIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
             return;
         }

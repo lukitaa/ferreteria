@@ -27,7 +27,8 @@ import servlets.ShoppingCart;
  */
 public class EditUserTemplate extends Template {
 
-    Users user;
+    private Users user;
+
     public EditUserTemplate(Users user) {
         this.user = user;
     }
@@ -54,9 +55,9 @@ public class EditUserTemplate extends Template {
     }
 
     @Override
-    public String printNav(Object data, ShoppingCart shoppingCart) {
+    public String printNav(ShoppingCart shoppingCart) {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
-        String username = ((SessionUser)data).getUsername(),
+        String username = sessionUser.getUsername(),
                content  = "";
 
         content += "<ul class=\"nav navbar-nav\">"
@@ -75,10 +76,12 @@ public class EditUserTemplate extends Template {
     }
 
     @Override
-    public String printPage(String title, Object data, ShoppingCart shoppingCart) {
+    public String printPage(String title, Object session, ShoppingCart shoppingCart) {
+        sessionUser = (SessionUser)session;
+
         return Template.printHeader(title)
                 + Template.printInitNav()
-                + this.printNav(data, shoppingCart)
+                + this.printNav(shoppingCart)
                 + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()

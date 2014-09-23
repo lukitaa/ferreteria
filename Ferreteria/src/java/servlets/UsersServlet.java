@@ -50,23 +50,23 @@ public class UsersServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request)) {
+
+        // An admin must be logged in to access this page!
+        if (!Common.adminIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
             return;
         }
-        
+
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
-        
+
         List<Users> usuarios = new ArrayList();
         try {
             usuarios = UsersController.getUsers();
         } catch (StorageException ex) {
             Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
