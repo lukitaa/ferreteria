@@ -60,7 +60,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <!-- BEGINS BREADCRUMBS -->
                 <ol class="breadcrumb">
-                    <li><a href="inicio">Home</a></li>
+                    <li><a href="inicio">Inicio</a></li>
                     <li class="active">Compras</li>
                 </ol>
                 <!-- ENDS BREADCRUMBS -->
