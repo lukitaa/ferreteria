@@ -64,7 +64,7 @@
                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>
                     <div class="container menu">
                         <div class="row">
-                            <a href="#second" class="col-md-3 btn-block btn btn-lg text-uppercase">historial</a>
+                            <a href="historial" class="col-md-3 btn-block btn btn-lg text-uppercase">historial</a>
                             <a href="productos" class="col-md-3 btn-block btn btn-lg text-uppercase">productos</a>
                             <a href="usuarios" class="col-md-3 btn-block btn btn-lg text-uppercase">usuarios</a>
                         </div>

@@ -36,7 +36,7 @@ public class HomeTemplate extends Template {
         String content = "";
 
         content += "<div class=\"jumbotron presentation home\">                    <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                    <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                    <div class=\"container menu\">                        <div class=\"row\">"
-                + "<a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>"
+                + "<a href=\"historial\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>"
                 + "<a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>";
 
         if (sessionUser.isAdmin())
