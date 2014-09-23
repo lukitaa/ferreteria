@@ -17,6 +17,8 @@
 
 package templates;
 
+import entity.Users;
+import java.util.List;
 import servlets.SessionUser;
 import servlets.ShoppingCart;
 
@@ -26,9 +28,30 @@ import servlets.ShoppingCart;
  */
 public class HistoricTemplate extends Template {
 
+    private List<Users> usuarios;
+
+    public HistoricTemplate(List<Users> usuarios_) {
+        this.usuarios = usuarios_;
+    }
+
+    private String printAllUsersInRows() {
+        String rows = "";
+
+        for (Users u : usuarios) {
+            rows += "<tr>"
+                + "<td>" + u.getUsername() + "</td>"
+                + "<td><a href=\"historial/cliente?usuario=" + u.getIdUser() + "\" class=\"btn btn-xs btn-info\">Ver</a></td>"
+                + "</tr>";
+        }
+        return rows;
+    }
+
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Historial de compras</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Nombre de usuario</th>                                <th>Historial</th>                            </tr>                        </thead>                        <tbody>                            <tr>                                <td>{USER_NAME}</td>                                <td><a href=\"historial/cliente?usuario={USER_ID}\" class=\"btn btn-xs btn-info\">Ver</a></td>                            </tr>                        </tbody>                    </table>                </div>";
+        return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Historial de compras</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Nombre de usuario</th>                                <th>Historial</th>                            </tr>                        </thead>"
+                + "<tbody>"
+                + printAllUsersInRows()
+                + "</tbody>                    </table>                </div>";
     }
 
     @Override

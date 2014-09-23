@@ -58,9 +58,9 @@ public class Historic extends HttpServlet {
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
 
-        List<Users> usuarios = new ArrayList();
+        List<Users> users = new ArrayList();
         try {
-            usuarios = UsersController.getUsers();
+            users = UsersController.getUsers();
         } catch (StorageException ex) {//TODO: do something
             Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,7 +68,7 @@ public class Historic extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.HistoricTemplate().printPage("Historial", session, shoppingCart));
+            out.println(new templates.HistoricTemplate(users).printPage("Historial", session, shoppingCart));
         } finally {
             out.close();
         }
