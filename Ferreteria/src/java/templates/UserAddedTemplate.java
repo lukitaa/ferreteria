@@ -66,6 +66,7 @@ public class UserAddedTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
+                + "<li><a href=\"historial\">Historial</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
                 + "<li class=\"active\"><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";

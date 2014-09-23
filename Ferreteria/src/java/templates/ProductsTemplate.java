@@ -82,6 +82,7 @@ public class ProductsTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
+                + "<li><a href=\"historial\">Historial</a></li>"
                 + "<li class=\"active\"><a href=\"productos\">Productos</a></li>";
 
         if (sessionUser.isAdmin())

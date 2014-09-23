@@ -67,6 +67,7 @@ public class HomeTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
+                + "<li><a href=\"historial\">Historial</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>";
 
         if (sessionUser.isAdmin())

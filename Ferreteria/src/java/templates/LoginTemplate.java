@@ -55,7 +55,7 @@ public class LoginTemplate extends Template {
     @Override
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
-                + "<li><a href=\"" + APP_ROOT + "\">Home</a></li>"
+                + "<li><a href=\"" + APP_ROOT + "\">Inicio</a></li>"
                 + "<li class=\"active\">Login</li>"
                 + "</ol>";
     }
