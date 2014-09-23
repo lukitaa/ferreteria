@@ -38,6 +38,10 @@
         <servlet-name>EditUserServlet</servlet-name>
         <servlet-class>servlets.EditUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Historic</servlet-name>
+        <servlet-class>servlets.Historic</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>EditUserServlet</servlet-name>
         <url-pattern>/usuarios/editar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Historic</servlet-name>
+        <url-pattern>/historial</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
