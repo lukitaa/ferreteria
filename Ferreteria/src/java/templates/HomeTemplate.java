@@ -33,7 +33,18 @@ public class HomeTemplate extends Template {
      */
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation home\">                    <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                    <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                    <div class=\"container menu\">                        <div class=\"row\">                            <a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>                            <a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>                            <a href=\"usuarios\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>                        </div>                    </div>                </div>";
+        String content = "";
+
+        content += "<div class=\"jumbotron presentation home\">                    <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                    <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                    <div class=\"container menu\">                        <div class=\"row\">"
+                + "<a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>"
+                + "<a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>";
+
+        if (sessionUser.isAdmin())
+            content += "<a href=\"usuarios\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>";
+
+        content += "</div>                    </div>                </div>";
+
+        return content;
     }
 
     @Override
@@ -56,9 +67,12 @@ public class HomeTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
-                + "<li><a href=\"productos\">Productos</a></li>"
-                + "<li><a href=\"usuarios\">Usuarios</a></li>"
-                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
+                + "<li><a href=\"productos\">Productos</a></li>";
+
+        if (sessionUser.isAdmin())
+            content += "<li><a href=\"usuarios\">Usuarios</a></li>";
+
+        content += "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
 
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";

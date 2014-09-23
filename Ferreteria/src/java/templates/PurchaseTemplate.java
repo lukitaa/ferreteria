@@ -75,8 +75,12 @@ public class PurchaseTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
-                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
-                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
+                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>";
+
+        if (sessionUser.isAdmin())
+            content += "<li><a href=\"usuarios\">Usuarios</a></li>";
+
+        content += "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
 
         // DO NOT display the products amount when it is already detailed on this view!
         /*

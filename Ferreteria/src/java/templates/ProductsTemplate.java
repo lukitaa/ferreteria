@@ -82,9 +82,12 @@ public class ProductsTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
-                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
-                + "<li><a href=\"usuarios\">Usuarios</a></li>"
-                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
+                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>";
+
+        if (sessionUser.isAdmin())
+            content += "<li><a href=\"usuarios\">Usuarios</a></li>";
+
+        content += "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
 
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
