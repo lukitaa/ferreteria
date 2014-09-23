@@ -58,6 +58,13 @@ public class HistoricServlet extends HttpServlet {
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
 
+        // If user is not admin, should see only his historic detail
+        // but not all the users information, so redirect him here
+        if (!session.isAdmin()) {
+            response.sendRedirect("/Ferreteria/historial/cliente?usuario=" + session.getIdUser());
+            return;
+        }
+
         List<Users> users = new ArrayList();
         try {
             users = UsersController.getUsers();
