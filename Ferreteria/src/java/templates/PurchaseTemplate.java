@@ -21,6 +21,7 @@ import entity.Details;
 import java.util.HashMap;
 import java.util.List;
 import servlets.SessionUser;
+import servlets.ShoppingCart;
 
 /**
  *
@@ -67,21 +68,33 @@ public class PurchaseTemplate extends Template {
     }
 
     @Override
-    public String printNav(Object data) {
-        String username = ((SessionUser)data).getUsername();
-        return "<ul class=\"nav navbar-nav\">"
+    public String printNav(Object data, ShoppingCart shoppingCart) {
+        int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
+        String username = ((SessionUser)data).getUsername(),
+               content  = "";
+        
+        content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
                 + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
-                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">"
-                + "<li><a>Hola, " + username + "!</a></li>"
+                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
+        
+        // DO NOT display the products amount when it is already detailed on this view!
+        /*
+        if (totalProducts > 0)
+            content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
+        */
+        
+        content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
+        
+        return content;
     }
 
     @Override
-    public String printPage(String title, Object data) {
+    public String printPage(String title, Object data, ShoppingCart shoppingCart) {
         return Template.printHeader(title)
                 + Template.printInitNav()
-                + this.printNav(data)
+                + this.printNav(data, shoppingCart)
                 + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()

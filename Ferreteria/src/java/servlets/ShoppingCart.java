@@ -49,4 +49,9 @@ public class ShoppingCart {
         this.productsId = idProd;
     }
     
+    
+    public int getTotalProducts() {
+        return this.productsAmount.size();
+    }
+    
 }

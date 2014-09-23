@@ -64,6 +64,50 @@ public class UsersController extends IntermediateController {
         }
 
     }
+    
+    
+    public static void deleteUser(Users u) throws StorageException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            new UsersDaoImpl(session).delete(u);
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch(HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                session.close();
+            }
+
+            throw new StorageException("Error interno al intentar eliminar el usuario.");
+        }
+    }
+    
+    
+    public static Users getUser(int userId) throws StorageException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            Users u = new UsersDaoImpl(session).get(userId);
+
+            session.getTransaction().commit();
+            session.close();
+            
+            return u;
+
+        } catch(HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                session.close();
+            }
+
+            throw new StorageException("Error interno al intentar eliminar el usuario.");
+        }
+    }
 
 
 }

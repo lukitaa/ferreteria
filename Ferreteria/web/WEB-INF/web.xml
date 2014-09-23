@@ -34,6 +34,10 @@
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>servlets.AddUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>servlets.EditUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/usuarios/agregar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/usuarios/editar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -18,7 +18,6 @@
 package templates;
 
 import entity.Users;
-import java.util.List;
 import servlets.SessionUser;
 import servlets.ShoppingCart;
 
@@ -26,36 +25,23 @@ import servlets.ShoppingCart;
  *
  * @author alumno
  */
-public class UsersTemplate extends Template {
-
-    List<Users> usuarios;
-    public UsersTemplate(List<Users> usuarios_) {
-        this.usuarios = usuarios_;
-    }
+public class EditUserTemplate extends Template {
     
-    private String printAllUsersInRows() {
-        String rows = "";
-
-        for (Users u : usuarios) {
-            rows += "<form action=\"DeleteUserServlet\" method=\"post\">" 
-                + "<input type=\"hidden\" name=\"user-id\" value=\"" + u.getIdUser() + "\">"
-                + "<tr>"
-                + "<td>" + u.getUsername() + "</td>"
-                + "<td>" + ((u.isAdmin()) ? "SI" : "NOP")  + "</td>"
-                + "<td><a href=\"usuarios/editar?usuario=" + u.getIdUser() + "\" class=\"btn btn-xs btn-info\">Editar</a></td>"
-                + "<td><input type=\"submit\" class=\"btn btn-xs btn-danger\" value=\"Eliminar\"></td>"
-                + "</tr>"
-                + "</form>";
-        }
-        return rows;
+    Users user;
+    public EditUserTemplate(Users user) {
+        this.user = user;
     }
-    
+
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation users\">                    <h1>ABM Usuarios</h1>                    <form class=\"form-inline\" role=\"form\" action=\"usuarios/agregar\" method=\"post\">                        <div class=\"form-group\">                          <label for=\"username\">Nombre de usuario</label>                          <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" placeholder=\"Ingrese el usuario\" required>                        </div>                        <div class=\"form-group\">                          <label for=\"user-password\">Contraseña</label>                          <input type=\"password\" name=\"password\" id=\"user-password\" class=\"form-control\" placeholder=\"Ingrese el password\" required>                        </div>                        <div class=\"checkbox\">                          <label>                            Es administrador?  <input type=\"checkbox\" name=\"admin\">                           </label>                        </div>                        <button type=\"submit\" class=\"btn btn-default\">Agregar</button>                    </form>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Nombre de usuario</th>                                <th>Es administrador</th>                                <th>Editar</th>                                <th>Eliminar</th>                            </tr>                        </thead>"
-                + "<tbody>"
-                + printAllUsersInRows()
-                + "</tbody>         </table>        </div>";
+        return "<div class=\"jumbotron presentation users\">                    <h1>Editar Usuarios</h1>"
+                + "<form class=\"form-inline\" role=\"form\" action=\"/usuarios/editar\" method=\"post\">"
+                + "<input type=\"hidden\" name=\"user-id\" value=\"" + user.getIdUser() + "\">"
+                + "<div class=\"form-group\">                          <label for=\"username\">Nombre de usuario</label>"
+                + "<input type=\"text\" value=\"" + user.getUsername() + "\" name=\"username\" id=\"username\" class=\"form-control\" placeholder=\"Nuevo nombre de usuario\" required>"
+                + "</div>                        <div class=\"form-group\">                          <label for=\"user-password\">Contraseña</label>"
+                + "<input type=\"password\" name=\"password\" id=\"user-password\" class=\"form-control\" placeholder=\"Nueva contraseña\" required>"
+                + "</div>                        <div class=\"checkbox\">                          <label>                            Es administrador?  <input type=\"checkbox\" name=\"admin\">                           </label>                        </div>                        <button type=\"submit\" class=\"btn btn-default\">Editar</button>                    </form>                </div>";
     }
 
     @Override

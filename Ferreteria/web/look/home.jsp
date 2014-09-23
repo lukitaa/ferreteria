@@ -47,6 +47,7 @@
                         <li><a href="productos">Productos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="productos">Carrito <span class="badge">0</span></a></li>
                         <li><a>Hola, YO!</a></li>
                         <li><a href="logout">Salir</a></li>
                     </ul>
@@ -63,9 +64,9 @@
                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>
                     <div class="container menu">
                         <div class="row">
-                            <a href="#first" class="col-md-3 btn-block btn btn-lg text-uppercase">usuarios</a>
                             <a href="#second" class="col-md-3 btn-block btn btn-lg text-uppercase">historial</a>
                             <a href="productos" class="col-md-3 btn-block btn btn-lg text-uppercase">productos</a>
+                            <a href="usuarios" class="col-md-3 btn-block btn btn-lg text-uppercase">usuarios</a>
                         </div>
                     </div>
                 </div>

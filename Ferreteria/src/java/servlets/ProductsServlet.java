@@ -55,6 +55,7 @@ public class ProductsServlet extends HttpServlet {
         }
 
         SessionUser session = Common.getSessionUser(request);
+        ShoppingCart shoppingCart = Common.getCart(request);
         List<Products> products = null;
 
         try {
@@ -66,7 +67,7 @@ public class ProductsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.ProductsTemplate(products).printPage("Productos", session));
+            out.println(new templates.ProductsTemplate(products).printPage("Productos", session, shoppingCart));
         } finally {
             out.close();
         }

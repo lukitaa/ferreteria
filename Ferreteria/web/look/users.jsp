@@ -48,6 +48,7 @@
                         <li class="active"><a href="usuarios">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="productos">Carrito <span class="badge">0</span></a></li>
                         <li><a>Hola, YO!</a></li>
                         <li><a href="logout">Salir</a></li>
                     </ul>
@@ -98,7 +99,7 @@
                                 <tr>
                                     <td>{USER_NAME}</td>
                                     <td>{USER_ADMIN}</td>
-                                    <td><a href="#" class="btn btn-xs btn-info">Editar</a></td>
+                                    <td><a href="usuarios/editar?usuario={USER_ID}" class="btn btn-xs btn-info">Editar</a></td>
                                     <td><input type="submit" class="btn btn-xs btn-danger" value="Eliminar"></td>
                                 </tr>
                             </form>

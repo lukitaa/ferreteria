@@ -22,12 +22,9 @@ import controllers.UsersController;
 import entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +33,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author alumno
  */
-@WebServlet(name = "UsersServlet", urlPatterns = {"/UsersServlet"})
-public class UsersServlet extends HttpServlet {
+public class EditUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,28 +47,35 @@ public class UsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request)) {
-            response.sendRedirect("/Ferreteria/login");
-            return;
-        }
-        
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
         
-        List<Users> usuarios = new ArrayList();
-        try {
-            usuarios = UsersController.getUsers();
-        } catch (StorageException ex) {
-            Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+        // Get the user to edit
+        Users u = null;
+        String userId = request.getParameter("usuario");
+        boolean error = true;
+        
+        if (userId != null && !userId.isEmpty()) {
+            
+            try {
+                u = UsersController.getUser(Integer.parseInt(userId));
+                
+                error = false;
+            } catch (StorageException ex) {//TODO: do something
+                Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println(new templates.UsersTemplate(usuarios).printPage("Usuarios", session, shoppingCart));
-        } finally {
-            out.close();
+        if (!error) {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            try {
+                out.println(new templates.EditUserTemplate(u).printPage("Editar usuarios", session, shoppingCart));
+            } finally {
+                out.close();
+            }
+        } else {
+            response.sendRedirect("/Ferreteria/usuarios");
         }
     }
 

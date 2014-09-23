@@ -59,6 +59,7 @@ public class PurchaseServlet extends HttpServlet {
         }
 
         SessionUser session = Common.getSessionUser(request);
+        ShoppingCart shoppingCart = Common.getCart(request);
         
         //TODO: get products to buy from POST
         ShoppingCart purchaseDetails = Common.getCart(request);
@@ -97,7 +98,7 @@ public class PurchaseServlet extends HttpServlet {
             
             
 
-            out.println(new templates.PurchaseTemplate(details, purchaseTotal).printPage("DetallesCompra", session));
+            out.println(new templates.PurchaseTemplate(details, purchaseTotal).printPage("DetallesCompra", session, shoppingCart));
         } finally {
             out.close();
         }

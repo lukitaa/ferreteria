@@ -17,8 +17,12 @@
 
 package servlets;
 
+import controllers.StorageException;
 import controllers.UsersController;
+import entity.Users;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,11 +51,19 @@ public class DeleteUserServlet extends HttpServlet {
         
         String recievedId = request.getParameter("user-id");
         int userId;
-        if (recievedId != null && !recievedId.isEmpty())
-             userId = Integer.valueOf(recievedId);
         
-        //TODO: Ccall the controller to delete the userId from the database
-        //UsersController.deleteUser(idUser);       
+        if (recievedId != null && !recievedId.isEmpty()) {
+            
+            userId = Integer.valueOf(recievedId);
+            
+            try {
+                Users u = UsersController.getUser(userId);
+                
+                UsersController.deleteUser(u);
+            } catch (StorageException ex) {//TODO: do something
+                Logger.getLogger(DeleteUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         //Check if this redirect URL works, otherwise use /Ferreteria/usuarios
         response.sendRedirect("usuarios");

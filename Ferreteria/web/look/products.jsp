@@ -47,6 +47,7 @@
                         <li class="active"><a href="productos">Productos</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="productos">Carrito <span class="badge">0</span></a></li>
                         <li><a>Hola, YO!</a></li>
                         <li><a href="logout">Salir</a></li>
                     </ul>

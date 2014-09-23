@@ -54,6 +54,7 @@ public class AddUserServlet extends HttpServlet {
         }
         
         SessionUser session = Common.getSessionUser(request);
+        ShoppingCart shoppingCart = Common.getCart(request);
         
         //TODO: get parameters and create user
         
@@ -75,7 +76,7 @@ public class AddUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.AddUserTemplate(error).printPage("Usuarios", session));
+            out.println(new templates.AddUserTemplate(error).printPage("Usuarios", session, shoppingCart));
         } finally {
             out.close();
         }

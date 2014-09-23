@@ -18,6 +18,7 @@
 package templates;
 
 import servlets.SessionUser;
+import servlets.ShoppingCart;
 
 /**
  *
@@ -32,7 +33,7 @@ public class HomeTemplate extends Template {
      */
     @Override
     public String printContent(Object data) {
-        return "<div class=\"jumbotron presentation home\">                     <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                     <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                     <div class=\"container menu\">                         <div class=\"row\">                             <a href=\"usuarios\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>                             <a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>                             <a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>                         </div>                     </div>                 </div>";
+        return "<div class=\"jumbotron presentation home\">                    <h1 header>Bienvenido a Ferreter&iacute;a!</h1>                    <p>Desde aqu&iacute; puede acceder a las siguientes opciones: </p>                    <div class=\"container menu\">                        <div class=\"row\">                            <a href=\"#second\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">historial</a>                            <a href=\"productos\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">productos</a>                            <a href=\"usuarios\" class=\"col-md-3 btn-block btn btn-lg text-uppercase\">usuarios</a>                        </div>                    </div>                </div>";
     }
 
     @Override
@@ -44,25 +45,35 @@ public class HomeTemplate extends Template {
     /**
      *
      * @param data Session user
-     * @return
+     * @param shoppingCart The shopping cart
+     * @return the nav template
      */
     @Override
-    public String printNav(Object data) {
-        String username = ((SessionUser)data).getUsername();
-        return "<ul class=\"nav navbar-nav\">"
+    public String printNav(Object data, ShoppingCart shoppingCart) {
+        int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
+        String username = ((SessionUser)data).getUsername(),
+               content  = "";
+        
+        content += "<ul class=\"nav navbar-nav\">"
                 + "<li class=\"active\"><a href=\"inicio\">Inicio</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
                 + "<li><a href=\"usuarios\">Usuarios</a></li>"
-                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">"
-                + "<li><a>Hola, " + username + "!</a></li>"
+                + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
+        
+        if (totalProducts > 0)
+            content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
+        
+        content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
+        
+        return content;
     }
 
     @Override
-    public String printPage(String title, Object data) {
+    public String printPage(String title, Object data, ShoppingCart shoppingCart) {
         return Template.printHeader(title)
                 + Template.printInitNav()
-                + this.printNav(data)
+                + this.printNav(data, shoppingCart)
                 + Template.printEndNav()
                 + Template.printInitContainer()
                 + this.printBreadcrumbs()

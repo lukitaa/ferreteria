@@ -49,11 +49,12 @@ public class HomeServlet extends HttpServlet {
         }
 
         SessionUser session = Common.getSessionUser(request);
+        ShoppingCart shoppingCart = Common.getCart(request);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.HomeTemplate().printPage("Inicio", session));
+            out.println(new templates.HomeTemplate().printPage("Inicio", session, shoppingCart));
         } finally {
             out.close();
         }
