@@ -17,15 +17,8 @@
 
 package servlets;
 
-import controllers.StorageException;
-import controllers.UsersController;
-import entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucio Martinez <luciomartinez at openmailbox dot org>
  */
-public class Historic extends HttpServlet {
+public class HistoricDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,27 +41,19 @@ public class Historic extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // User must be logged in to access this page!
-        if (!Common.userIsLogged(request)) {
-            response.sendRedirect("/Ferreteria/login");
-            return;
-        }
-
-        SessionUser session = Common.getSessionUser(request);
-        ShoppingCart shoppingCart = Common.getCart(request);
-
-        List<Users> users = new ArrayList();
-        try {
-            users = UsersController.getUsers();
-        } catch (StorageException ex) {//TODO: do something
-            Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.HistoricTemplate(users).printPage("Historial", session, shoppingCart));
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet HistoricDetailServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet HistoricDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         } finally {
             out.close();
         }

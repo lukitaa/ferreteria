@@ -40,7 +40,11 @@
     </servlet>
     <servlet>
         <servlet-name>Historic</servlet-name>
-        <servlet-class>servlets.Historic</servlet-class>
+        <servlet-class>servlets.HistoricServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoricDetailServlet</servlet-name>
+        <servlet-class>servlets.HistoricDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>Historic</servlet-name>
         <url-pattern>/historial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoricDetailServlet</servlet-name>
+        <url-pattern>/historial/cliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
