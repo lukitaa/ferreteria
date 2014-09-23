@@ -51,6 +51,10 @@ public class HistoricDetailServlet extends HttpServlet {
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
 
+        String user = request.getParameter("usuario");
+
+        //TODO: recover purchase data
+
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
