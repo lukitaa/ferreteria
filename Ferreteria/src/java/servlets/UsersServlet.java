@@ -63,7 +63,7 @@ public class UsersServlet extends HttpServlet {
         List<Users> usuarios = new ArrayList();
         try {
             usuarios = UsersController.getUsers();
-        } catch (StorageException ex) {
+        } catch (StorageException ex) {//TODO: do something
             Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

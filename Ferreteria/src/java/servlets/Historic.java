@@ -17,8 +17,15 @@
 
 package servlets;
 
+import controllers.StorageException;
+import controllers.UsersController;
+import entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,19 +48,27 @@ public class Historic extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // User must be logged in to access this page!
+        if (!Common.userIsLogged(request)) {
+            response.sendRedirect("/Ferreteria/login");
+            return;
+        }
+
+        SessionUser session = Common.getSessionUser(request);
+        ShoppingCart shoppingCart = Common.getCart(request);
+
+        List<Users> usuarios = new ArrayList();
+        try {
+            usuarios = UsersController.getUsers();
+        } catch (StorageException ex) {//TODO: do something
+            Logger.getLogger(UsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Historic</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Historic at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println(new templates.HistoricTemplate().printPage("Historial", session, shoppingCart));
         } finally {
             out.close();
         }

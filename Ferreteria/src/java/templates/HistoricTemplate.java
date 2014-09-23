@@ -47,7 +47,8 @@ public class HistoricTemplate extends Template {
 
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
-                + "<li class=\"active\"><a href=\"productos\">Productos</a></li>";
+                + "<li class=\"active\"><a href=\"historial\">Historial</a></li>"
+                + "<li><a href=\"productos\">Productos</a></li>";
 
         if (sessionUser.isAdmin())
             content += "<li><a href=\"usuarios\">Usuarios</a></li>";
