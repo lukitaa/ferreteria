@@ -18,7 +18,6 @@
 package templates;
 
 import entity.Details;
-import java.util.HashMap;
 import java.util.List;
 import servlets.SessionUser;
 import servlets.ShoppingCart;
@@ -31,26 +30,26 @@ public class PurchaseTemplate extends Template {
 
     List<Details> purchaseDetails;
     int purchaseTotal;
-    
+
     public PurchaseTemplate(List<Details> purchaseDetails, int purchaseTotal){
         this.purchaseDetails = purchaseDetails;
         this.purchaseTotal = purchaseTotal;
     }
-    
+
     private String printAllDetailsInRow(){
         String rows = "";
-        
+
         for (Details d : purchaseDetails) {
             rows += "<tr>"
-                + "<td>" + d.getProducts().getProduct() + "</td>" 
-                + "<td class=\"price\">" + d.getPrice() + "</td>" 
-                + "<td class=\"stock\">" + d.getAmount() + "</td>" 
+                + "<td>" + d.getProducts().getProduct() + "</td>"
+                + "<td class=\"price\">" + d.getPrice() + "</td>"
+                + "<td class=\"stock\">" + d.getAmount() + "</td>"
                 + "</tr>";
         }
 
         return rows;
     }
-    
+
     @Override
     public String printContent(Object data) {
         return "<div class=\"jumbotron presentation products\">                    <h1 class=\"header\">Detalle compra</h1>                    <table class=\"table table-bordered\">                        <thead>                            <tr>                                <th>Producto</th>                                <th>Precio</th>                                <th>Unidades</th>                            </tr>                        </thead>"
@@ -62,8 +61,9 @@ public class PurchaseTemplate extends Template {
     @Override
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
-                + "<li><a href=\"" + APP_ROOT + "\">Home</a></li>"
-                + "<li class=\"active\">Compras</li>"
+                + "<li><a href=\"" + APP_ROOT + "\">Inicio</a></li>"
+                + "<li><a href=\"productos\">Productos</a></li>"
+                + "<li class=\"active\">Compra</li>"
                 + "</ol>";
     }
 
@@ -72,21 +72,21 @@ public class PurchaseTemplate extends Template {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
         String username = ((SessionUser)data).getUsername(),
                content  = "";
-        
+
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
                 + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
-        
+
         // DO NOT display the products amount when it is already detailed on this view!
         /*
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
         */
-        
+
         content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
-        
+
         return content;
     }
 
@@ -102,5 +102,5 @@ public class PurchaseTemplate extends Template {
                 + Template.printEndContainer()
                 + Template.printFooter();
     }
-    
+
 }

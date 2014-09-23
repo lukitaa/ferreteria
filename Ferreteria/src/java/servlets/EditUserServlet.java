@@ -35,6 +35,44 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditUserServlet extends HttpServlet {
 
+
+    void loadEditUserView(HttpServletResponse response, SessionUser session, ShoppingCart shoppingCart, int userId) throws IOException {
+        try {
+            Users u = UsersController.getUser(userId);
+
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            try {
+                out.println(new templates.EditUserTemplate(u).printPage("Editar usuarios", session, shoppingCart));
+            } finally {
+                out.close();
+            }
+        } catch (StorageException ex) {//TODO: do something
+            Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void loadUserEditedView(HttpServletResponse response, SessionUser session, ShoppingCart shoppingCart, int userId, String newUsername, String newPassword, boolean newAdminPolicy) throws IOException {
+        boolean error = false;
+
+        try {
+            // Recover user
+            Users u = UsersController.getUser(userId);
+            // Update user attributes
+            UsersController.updateAllUsersAttributes(u, newUsername, newPassword, newAdminPolicy);
+        } catch (StorageException ex) {
+            error = true;
+        }
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            out.println(new templates.UserEditedTemplate(error).printPage("Editar usuarios", session, shoppingCart));
+        } finally {
+            out.close();
+        }
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,35 +84,25 @@ public class EditUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
-        
+
         // Get the user to edit
-        Users u = null;
-        String userId = request.getParameter("usuario");
-        boolean error = true;
-        
-        if (userId != null && !userId.isEmpty()) {
-            
-            try {
-                u = UsersController.getUser(Integer.parseInt(userId));
-                
-                error = false;
-            } catch (StorageException ex) {//TODO: do something
-                Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        if (!error) {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            try {
-                out.println(new templates.EditUserTemplate(u).printPage("Editar usuarios", session, shoppingCart));
-            } finally {
-                out.close();
-            }
+        String userIdToEdit = request.getParameter("usuario"),
+               userIdEdited = request.getParameter("user-id");
+
+        if (userIdToEdit != null && !userIdToEdit.isEmpty()) {
+            loadEditUserView(response, session, shoppingCart, Integer.parseInt(userIdToEdit));
+        } else if (userIdEdited != null && !userIdEdited.isEmpty()) {
+
+            String username = request.getParameter("username"),
+                   password = request.getParameter("password");
+            boolean admin   = (request.getParameter("admin") != null && request.getParameter("admin").equals("on"));
+
+            loadUserEditedView(response, session, shoppingCart, Integer.parseInt(userIdEdited), username, password, admin);
         } else {
+            // WTF do the user want to?? Go to ...
             response.sendRedirect("/Ferreteria/usuarios");
         }
     }

@@ -22,8 +22,6 @@ import controllers.StorageException;
 import controllers.UsersController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,37 +44,37 @@ public class AddUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // User must be logged in to access this page!
         if (!Common.userIsLogged(request)) {
             response.sendRedirect("/Ferreteria/login");
             return;
         }
-        
+
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
-        
+
         //TODO: get parameters and create user
-        
+
         String username = request.getParameter("username"),
                password = request.getParameter("password");
-        boolean isAdmin = (request.getParameter("admin") == "on"),
+        boolean isAdmin = (request.getParameter("admin") != null && request.getParameter("admin").equals("on")),
                 error   = false;
-        
+
         try {
             UsersController.addUser(username, password, isAdmin);
-            
+
         } catch (InvalidParameterException ex) {
             error = true;
         } catch (StorageException ex) {
             error = true;
         }
-        
-        
+
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(new templates.AddUserTemplate(error).printPage("Usuarios", session, shoppingCart));
+            out.println(new templates.UserAddedTemplate(error).printPage("Usuarios", session, shoppingCart));
         } finally {
             out.close();
         }

@@ -64,8 +64,8 @@ public class UsersController extends IntermediateController {
         }
 
     }
-    
-    
+
+
     public static void deleteUser(Users u) throws StorageException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -85,8 +85,8 @@ public class UsersController extends IntermediateController {
             throw new StorageException("Error interno al intentar eliminar el usuario.");
         }
     }
-    
-    
+
+
     public static Users getUser(int userId) throws StorageException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -96,7 +96,7 @@ public class UsersController extends IntermediateController {
 
             session.getTransaction().commit();
             session.close();
-            
+
             return u;
 
         } catch(HibernateException e) {
@@ -105,7 +105,33 @@ public class UsersController extends IntermediateController {
                 session.close();
             }
 
-            throw new StorageException("Error interno al intentar eliminar el usuario.");
+            throw new StorageException("Error interno al intentar cargar el usuario.");
+        }
+    }
+
+
+    public static void updateAllUsersAttributes(Users user, String username, String password, boolean admin) throws StorageException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            // Update user's attributes
+            user.setUsername(username);
+            user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12)));
+            user.setAdmin(admin);
+
+            new UsersDaoImpl(session).update(user);
+
+            session.getTransaction().commit();
+            session.close();
+
+        } catch(HibernateException e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                session.close();
+            }
+
+            throw new StorageException("Error interno al intentar actualizar el usuario.");
         }
     }
 

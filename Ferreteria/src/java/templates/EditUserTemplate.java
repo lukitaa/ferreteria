@@ -26,7 +26,7 @@ import servlets.ShoppingCart;
  * @author alumno
  */
 public class EditUserTemplate extends Template {
-    
+
     Users user;
     public EditUserTemplate(Users user) {
         this.user = user;
@@ -35,7 +35,7 @@ public class EditUserTemplate extends Template {
     @Override
     public String printContent(Object data) {
         return "<div class=\"jumbotron presentation users\">                    <h1>Editar Usuarios</h1>"
-                + "<form class=\"form-inline\" role=\"form\" action=\"/usuarios/editar\" method=\"post\">"
+                + "<form class=\"form-inline\" role=\"form\" action=\"usuarios/editar\" method=\"post\">"
                 + "<input type=\"hidden\" name=\"user-id\" value=\"" + user.getIdUser() + "\">"
                 + "<div class=\"form-group\">                          <label for=\"username\">Nombre de usuario</label>"
                 + "<input type=\"text\" value=\"" + user.getUsername() + "\" name=\"username\" id=\"username\" class=\"form-control\" placeholder=\"Nuevo nombre de usuario\" required>"
@@ -47,8 +47,9 @@ public class EditUserTemplate extends Template {
     @Override
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
-                + "<li><a href=\"" + APP_ROOT + "\">Home</a></li>"
-                + "<li class=\"active\">ABM Usuarios</li>"
+                + "<li><a href=\"" + APP_ROOT + "\">Inicio</a></li>"
+                + "<li><a href=\"usuarios\">Usuarios</a></li>"
+                + "<li class=\"active\">Editar</li>"
                 + "</ol>";
     }
 
@@ -57,19 +58,19 @@ public class EditUserTemplate extends Template {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
         String username = ((SessionUser)data).getUsername(),
                content  = "";
-        
+
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
                 + "<li class=\"active\"><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
-        
+
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
-        
+
         content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
-        
+
         return content;
     }
 
@@ -85,5 +86,5 @@ public class EditUserTemplate extends Template {
                 + Template.printEndContainer()
                 + Template.printFooter();
     }
-    
+
 }

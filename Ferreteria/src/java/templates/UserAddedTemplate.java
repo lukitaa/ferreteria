@@ -24,28 +24,27 @@ import servlets.ShoppingCart;
  *
  * @author alumno
  */
-public class AddUserTemplate extends Template {
-    
+public class UserAddedTemplate extends Template {
+
     private boolean error;
-    
-    public AddUserTemplate(boolean error) {
+    public UserAddedTemplate(boolean error) {
         this.error = error;
     }
 
     @Override
     public String printContent(Object data) {
         String content = "";
-        
+
         content += "<div class=\"jumbotron\">                    <h1>Agregar Usuario</h1>";
-        
+
         if (!error) {
             content += "<p class=\"lead\">Usuario agregado exitosamente.</p>";
         } else {
-            content += "<p class=\"lead\">Usuario no agregado</p>";
+            content += "<p class=\"lead\">Usuario no agregado.</p>";
         }
-                
+
         content += "</div>";
-        
+
         return content;
     }
 
@@ -53,7 +52,7 @@ public class AddUserTemplate extends Template {
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
                 + "<li><a href=\"" + APP_ROOT + "\">Inicio</a></li>"
-                + "<li><a href=\"" + APP_ROOT + "usuarios\">Usuarios</a></li>"
+                + "<li><a href=\"usuarios\">Usuarios</a></li>"
                 + "<li class=\"active\">Agregar usuario</li>"
                 + "</ol>";
     }
@@ -63,19 +62,19 @@ public class AddUserTemplate extends Template {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
         String username = ((SessionUser)data).getUsername(),
                content  = "";
-        
+
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
                 + "<li><a href=\"productos\">Productos</a></li>"
                 + "<li class=\"active\"><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
-        
+
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
-        
+
         content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
-        
+
         return content;
     }
 
@@ -91,5 +90,5 @@ public class AddUserTemplate extends Template {
                 + Template.printEndContainer()
                 + Template.printFooter();
     }
-    
+
 }

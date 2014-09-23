@@ -68,7 +68,7 @@
                 <!-- BEGINS CONTENT -->
                 <div class="jumbotron presentation users">
                     <h1>Editar Usuarios</h1>
-                    <form class="form-inline" role="form" action="/usuarios/editar" method="post">
+                    <form class="form-inline" role="form" action="usuarios/editar" method="post">
                         <input type="hidden" name="user-id" value="{USER_ID}">
                         <div class="form-group">
                           <label for="username">Nombre de usuario</label>

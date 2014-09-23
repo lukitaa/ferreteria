@@ -69,8 +69,8 @@ public class ProductsTemplate extends Template {
     @Override
     public String printBreadcrumbs() {
         return "<ol class=\"breadcrumb\">"
-                + "<li><a href=\"" + APP_ROOT + "\">Home</a></li>"
-                + "<li class=\"active\">Compras</li>"
+                + "<li><a href=\"" + APP_ROOT + "\">Inicio</a></li>"
+                + "<li class=\"active\">Productos</li>"
                 + "</ol>";
     }
 
@@ -79,19 +79,19 @@ public class ProductsTemplate extends Template {
         int totalProducts = (shoppingCart != null) ? shoppingCart.getTotalProducts() : 0;
         String username = ((SessionUser)data).getUsername(),
                content  = "";
-        
+
         content += "<ul class=\"nav navbar-nav\">"
                 + "<li><a href=\"inicio\">Inicio</a></li>"
                 + "<li class=\"active\"><a href=\"productos\">Productos</a></li>"
                 + "<li><a href=\"usuarios\">Usuarios</a></li>"
                 + "</ul>                     <ul class=\"nav navbar-nav navbar-right\">";
-        
+
         if (totalProducts > 0)
             content += "<li><a href=\"productos\">Carrito <span class=\"badge\">" + totalProducts + "</span></a></li>";
-        
+
         content += "<li><a>Hola, " + username + "!</a></li>"
                 + "<li><a href=\"logout\">Salir</a></li>                     </ul>";
-        
+
         return content;
     }
 
