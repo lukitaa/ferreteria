@@ -17,17 +17,14 @@
 
 package servlets;
 
+import controllers.InvalidParameterException;
 import controllers.PurchaseController;
 import controllers.StorageException;
 import entity.Details;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,33 +57,35 @@ public class PurchaseServlet extends HttpServlet {
 
         SessionUser session = Common.getSessionUser(request);
         ShoppingCart shoppingCart = Common.getCart(request);
-        
+
         //TODO: get products to buy from POST
         ShoppingCart purchaseDetails = Common.getCart(request);
         boolean error = false;
         int purchaseTotal = 0;
-        
+
         List<Details> details = new ArrayList();
-        
+
         if (purchaseDetails == null) {
             response.sendRedirect("/Ferreteria/productos");
             return;
         }
-        
+
         try {
             details = PurchaseController.purchaseProducts(purchaseDetails, session.getIdUser());
-            
+
             for (Details d : details) {
                 purchaseTotal += d.getAmount() * d.getPrice();
             }
-            
+
             //CLEAR THE SESSION WITH PRODUCTS
             Common.destroyCart(request);
         } catch (StorageException ex) {
             error = true;
+        } catch (InvalidParameterException ex) {
+            error = true;
         }
-        
-        
+
+        // Check if there was an error or nothing has been bought
         if (error || details.size() <= 0) {
             response.sendRedirect("/Ferreteria/productos");
             return;
@@ -95,9 +94,6 @@ public class PurchaseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
-            
-
             out.println(new templates.PurchaseTemplate(details, purchaseTotal).printPage("DetallesCompra", session, shoppingCart));
         } finally {
             out.close();
